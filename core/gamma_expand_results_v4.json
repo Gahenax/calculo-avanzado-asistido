@@ -1,0 +1,1362 @@
+{
+  "target": "gamma (Euler-Mascheroni)",
+  "target_value": "0.5772156649015328606065120900824024310421593359399235988057672348848677267776646709369470632917467495",
+  "phases": [
+    {
+      "phase": "Phase A: deg<=2, coeff[-5,5]",
+      "max_degree": 2,
+      "coeff_range": [
+        -5,
+        -4,
+        -3,
+        -2,
+        -1,
+        0,
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "total_pairs": 665858,
+      "q_singular_rejected": 3,
+      "ratio_rejected": 53084,
+      "fast_rejected": 608237,
+      "evaluated": 1075,
+      "stable_count": 1074,
+      "elapsed": 230.1596064567566,
+      "time_limited": false,
+      "best_gap": "3.18558816018616e-5",
+      "best_stability": 28.0,
+      "best_cost": 6,
+      "candidates": [
+        {
+          "p_poly": [
+            -5,
+            -2,
+            5
+          ],
+          "q_poly": [
+            3,
+            2,
+            1
+          ],
+          "p_str": "-5*n^2 - 2*n + 5",
+          "q_str": "3*n^2 + 2*n + 1",
+          "deg_p": 2,
+          "deg_q": 2,
+          "complexity_cost": 26,
+          "v_n": "0.581665281563842878980501789694",
+          "v_2n": "0.581665281563842878980501789694",
+          "trunc_delta": "0.0",
+          "stability_trunc": 50.0,
+          "digits_agree": 28,
+          "stability_score": 28.0,
+          "gap": "0.00444961666231002",
+          "passed": true
+        },
+        {
+          "p_poly": [
+            -1,
+            -1,
+            0
+          ],
+          "q_poly": [
+            5,
+            -1,
+            1
+          ],
+          "p_str": "-n^2 - n",
+          "q_str": "5*n^2 - n + 1",
+          "deg_p": 2,
+          "deg_q": 2,
+          "complexity_cost": 17,
+          "v_n": "0.572601533618641546274072011023",
+          "v_2n": "0.572601533618641546274072011023",
+          "trunc_delta": "0.0",
+          "stability_trunc": 50.0,
+          "digits_agree": 27,
+          "stability_score": 27.0,
+          "gap": "0.00461413128289131",
+          "passed": true
+        },
+        {
+          "p_poly": [
+            -1,
+            2,
+            -3
+          ],
+          "q_poly": [
+            4,
+            0,
+            1
+          ],
+          "p_str": "-n^2 + 2*n - 3",
+          "q_str": "4*n^2 + 1",
+          "deg_p": 2,
+          "deg_q": 2,
+          "complexity_cost": 19,
+          "v_n": "0.585219026925606193532082860278",
+          "v_2n": "0.585219026925606193532082860278",
+          "trunc_delta": "0.0",
+          "stability_trunc": 50.0,
+          "digits_agree": 27,
+          "stability_score": 27.0,
+          "gap": "0.00800336202407333",
+          "passed": true
+        },
+        {
+          "p_poly": [
+            -5,
+            0,
+            4
+          ],
+          "q_poly": [
+            3,
+            -2,
+            0
+          ],
+          "p_str": "-5*n^2 + 4",
+          "q_str": "3*n^2 - 2*n",
+          "deg_p": 2,
+          "deg_q": 2,
+          "complexity_cost": 22,
+          "v_n": "0.575206605834418246425633939621",
+          "v_2n": "0.575206605834418246425633939621",
+          "trunc_delta": "0.0",
+          "stability_trunc": 50.0,
+          "digits_agree": 27,
+          "stability_score": 27.0,
+          "gap": "0.00200905906711461",
+          "passed": true
+        },
+        {
+          "p_poly": [
+            -3,
+            -3,
+            4
+          ],
+          "q_poly": [
+            1,
+            4,
+            1
+          ],
+          "p_str": "-3*n^2 - 3*n + 4",
+          "q_str": "n^2 + 4*n + 1",
+          "deg_p": 2,
+          "deg_q": 2,
+          "complexity_cost": 24,
+          "v_n": "0.581029020599875254409735261901",
+          "v_2n": "0.581029020599875254409735261901",
+          "trunc_delta": "0.0",
+          "stability_trunc": 50.0,
+          "digits_agree": 27,
+          "stability_score": 27.0,
+          "gap": "0.00381335569834239",
+          "passed": true
+        },
+        {
+          "p_poly": [
+            5,
+            -3,
+            -4
+          ],
+          "q_poly": [
+            2,
+            1,
+            1
+          ],
+          "p_str": "5*n^2 - 3*n - 4",
+          "q_str": "2*n^2 + n + 1",
+          "deg_p": 2,
+          "deg_q": 2,
+          "complexity_cost": 24,
+          "v_n": "0.584157142366101886074247424327",
+          "v_2n": "0.584157142366101886074247424327",
+          "trunc_delta": "0.0",
+          "stability_trunc": 50.0,
+          "digits_agree": 27,
+          "stability_score": 27.0,
+          "gap": "0.00694147746456903",
+          "passed": true
+        },
+        {
+          "p_poly": [
+            3,
+            -1,
+            -5
+          ],
+          "q_poly": [
+            4,
+            2,
+            1
+          ],
+          "p_str": "3*n^2 - n - 5",
+          "q_str": "4*n^2 + 2*n + 1",
+          "deg_p": 2,
+          "deg_q": 2,
+          "complexity_cost": 24,
+          "v_n": "0.58524852001835196632454959044",
+          "v_2n": "0.58524852001835196632454959044",
+          "trunc_delta": "0.0",
+          "stability_trunc": 50.0,
+          "digits_agree": 27,
+          "stability_score": 27.0,
+          "gap": "0.00803285511681911",
+          "passed": true
+        },
+        {
+          "p_poly": [
+            -3,
+            4,
+            3
+          ],
+          "q_poly": [
+            3,
+            4,
+            0
+          ],
+          "p_str": "-3*n^2 + 4*n + 3",
+          "q_str": "3*n^2 + 4*n",
+          "deg_p": 2,
+          "deg_q": 2,
+          "complexity_cost": 25,
+          "v_n": "0.575605051570822253991170978017",
+          "v_2n": "0.575605051570822253991170978017",
+          "trunc_delta": "0.0",
+          "stability_trunc": 50.0,
+          "digits_agree": 27,
+          "stability_score": 27.0,
+          "gap": "0.00161061333071061",
+          "passed": true
+        },
+        {
+          "p_poly": [
+            3,
+            4,
+            4
+          ],
+          "q_poly": [
+            5,
+            2,
+            -1
+          ],
+          "p_str": "3*n^2 + 4*n + 4",
+          "q_str": "5*n^2 + 2*n - 1",
+          "deg_p": 2,
+          "deg_q": 2,
+          "complexity_cost": 27,
+          "v_n": "0.569988379512791606575168206532",
+          "v_2n": "0.569988379512791606575168206532",
+          "trunc_delta": "0.0",
+          "stability_trunc": 50.0,
+          "digits_agree": 27,
+          "stability_score": 27.0,
+          "gap": "0.00722728538874125",
+          "passed": true
+        },
+        {
+          "p_poly": [
+            -5,
+            4,
+            -3
+          ],
+          "q_poly": [
+            5,
+            4,
+            1
+          ],
+          "p_str": "-5*n^2 + 4*n - 3",
+          "q_str": "5*n^2 + 4*n + 1",
+          "deg_p": 2,
+          "deg_q": 2,
+          "complexity_cost": 30,
+          "v_n": "0.577671735860713171086662963232",
+          "v_2n": "0.577671735860713171086662963232",
+          "trunc_delta": "0.0",
+          "stability_trunc": 50.0,
+          "digits_agree": 27,
+          "stability_score": 27.0,
+          "gap": "0.00045607095918031",
+          "passed": true
+        },
+        {
+          "p_poly": [
+            -3,
+            -5,
+            4
+          ],
+          "q_poly": [
+            4,
+            5,
+            1
+          ],
+          "p_str": "-3*n^2 - 5*n + 4",
+          "q_str": "4*n^2 + 5*n + 1",
+          "deg_p": 2,
+          "deg_q": 2,
+          "complexity_cost": 30,
+          "v_n": "0.570562254644457403480321183668",
+          "v_2n": "0.570562254644457403480321183668",
+          "trunc_delta": "0.0",
+          "stability_trunc": 50.0,
+          "digits_agree": 27,
+          "stability_score": 27.0,
+          "gap": "0.00665341025707546",
+          "passed": true
+        },
+        {
+          "p_poly": [
+            0,
+            3,
+            1
+          ],
+          "q_poly": [
+            0,
+            2,
+            -1
+          ],
+          "p_str": "3*n + 1",
+          "q_str": "2*n - 1",
+          "deg_p": 1,
+          "deg_q": 1,
+          "complexity_cost": 11,
+          "v_n": "0.572062932951336524918335823384",
+          "v_2n": "0.572062932951336524918335823384",
+          "trunc_delta": "0.0",
+          "stability_trunc": 50.0,
+          "digits_agree": 26,
+          "stability_score": 26.0,
+          "gap": "0.00515273195019634",
+          "passed": true
+        },
+        {
+          "p_poly": [
+            -1,
+            0,
+            0
+          ],
+          "q_poly": [
+            1,
+            1,
+            1
+          ],
+          "p_str": "-n^2",
+          "q_str": "n^2 + n + 1",
+          "deg_p": 2,
+          "deg_q": 2,
+          "complexity_cost": 12,
+          "v_n": "0.576504157861277530213414293172",
+          "v_2n": "0.576504157861277530213414293172",
+          "trunc_delta": "0.0",
+          "stability_trunc": 50.0,
+          "digits_agree": 26,
+          "stability_score": 26.0,
+          "gap": "0.00071150704025533",
+          "passed": true
+        },
+        {
+          "p_poly": [
+            0,
+            -1,
+            -1
+          ],
+          "q_poly": [
+            4,
+            0,
+            1
+          ],
+          "p_str": "-n - 1",
+          "q_str": "4*n^2 + 1",
+          "deg_p": 1,
+          "deg_q": 2,
+          "complexity_cost": 13,
+          "v_n": "0.585268542012711483225341414137",
+          "v_2n": "0.585268542012711483225341414137",
+          "trunc_delta": "0.0",
+          "stability_trunc": 50.0,
+          "digits_agree": 26,
+          "stability_score": 26.0,
+          "gap": "0.00805287711117862",
+          "passed": true
+        },
+        {
+          "p_poly": [
+            0,
+            -3,
+            2
+          ],
+          "q_poly": [
+            1,
+            1,
+            1
+          ],
+          "p_str": "-3*n + 2",
+          "q_str": "n^2 + n + 1",
+          "deg_p": 1,
+          "deg_q": 2,
+          "complexity_cost": 14,
+          "v_n": "0.579645129580706961715647463885",
+          "v_2n": "0.579645129580706961715647463885",
+          "trunc_delta": "0.0",
+          "stability_trunc": 50.0,
+          "digits_agree": 26,
+          "stability_score": 26.0,
+          "gap": "0.0024294646791741",
+          "passed": true
+        },
+        {
+          "p_poly": [
+            0,
+            -2,
+            -1
+          ],
+          "q_poly": [
+            2,
+            -3,
+            0
+          ],
+          "p_str": "-2*n - 1",
+          "q_str": "2*n^2 - 3*n",
+          "deg_p": 1,
+          "deg_q": 2,
+          "complexity_cost": 14,
+          "v_n": "0.57304847501664974628924251443",
+          "v_2n": "0.57304847501664974628924251443",
+          "trunc_delta": "0.0",
+          "stability_trunc": 50.0,
+          "digits_agree": 26,
+          "stability_score": 26.0,
+          "gap": "0.00416718988488311",
+          "passed": true
+        },
+        {
+          "p_poly": [
+            -1,
+            0,
+            -1
+          ],
+          "q_poly": [
+            4,
+            0,
+            1
+          ],
+          "p_str": "-n^2 - 1",
+          "q_str": "4*n^2 + 1",
+          "deg_p": 2,
+          "deg_q": 2,
+          "complexity_cost": 15,
+          "v_n": "0.574567323362890179141685313818",
+          "v_2n": "0.574567323362890179141685313818",
+          "trunc_delta": "0.0",
+          "stability_trunc": 50.0,
+          "digits_agree": 26,
+          "stability_score": 26.0,
+          "gap": "0.00264834153864268",
+          "passed": true
+        },
+        {
+          "p_poly": [
+            3,
+            1,
+            -2
+          ],
+          "q_poly": [
+            1,
+            1,
+            0
+          ],
+          "p_str": "3*n^2 + n - 2",
+          "q_str": "n^2 + n",
+          "deg_p": 2,
+          "deg_q": 2,
+          "complexity_cost": 16,
+          "v_n": "0.570427230728265782095701881502",
+          "v_2n": "0.570427230728265782095701881502",
+          "trunc_delta": "0.0",
+          "stability_trunc": 50.0,
+          "digits_agree": 26,
+          "stability_score": 26.0,
+          "gap": "0.00678843417326708",
+          "passed": true
+        },
+        {
+          "p_poly": [
+            0,
+            -1,
+            4
+          ],
+          "q_poly": [
+            4,
+            1,
+            0
+          ],
+          "p_str": "-n + 4",
+          "q_str": "4*n^2 + n",
+          "deg_p": 1,
+          "deg_q": 2,
+          "complexity_cost": 16,
+          "v_n": "0.586974672975229613136654606179",
+          "v_2n": "0.586974672975229613136654606179",
+          "trunc_delta": "0.0",
+          "stability_trunc": 50.0,
+          "digits_agree": 26,
+          "stability_score": 26.0,
+          "gap": "0.00975900807369675",
+          "passed": true
+        },
+        {
+          "p_poly": [
+            -1,
+            1,
+            -2
+          ],
+          "q_poly": [
+            2,
+            2,
+            1
+          ],
+          "p_str": "-n^2 + n - 2",
+          "q_str": "2*n^2 + 2*n + 1",
+          "deg_p": 2,
+          "deg_q": 2,
+          "complexity_cost": 17,
+          "v_n": "0.573053831092908326353077193137",
+          "v_2n": "0.573053831092908326353077193137",
+          "trunc_delta": "0.0",
+          "stability_trunc": 50.0,
+          "digits_agree": 26,
+          "stability_score": 26.0,
+          "gap": "0.00416183380862453",
+          "passed": true
+        },
+        {
+          "p_poly": [
+            2,
+            -2,
+            -1
+          ],
+          "q_poly": [
+            2,
+            -1,
+            1
+          ],
+          "p_str": "2*n^2 - 2*n - 1",
+          "q_str": "2*n^2 - n + 1",
+          "deg_p": 2,
+          "deg_q": 2,
+          "complexity_cost": 17,
+          "v_n": "0.581914440258869024780249741492",
+          "v_2n": "0.581914440258869024780249741492",
+          "trunc_delta": "0.0",
+          "stability_trunc": 50.0,
+          "digits_agree": 26,
+          "stability_score": 26.0,
+          "gap": "0.00469877535733616",
+          "passed": true
+        },
+        {
+          "p_poly": [
+            3,
+            1,
+            -1
+          ],
+          "q_poly": [
+            1,
+            3,
+            0
+          ],
+          "p_str": "3*n^2 + n - 1",
+          "q_str": "n^2 + 3*n",
+          "deg_p": 2,
+          "deg_q": 2,
+          "complexity_cost": 17,
+          "v_n": "0.584426657351311445944987370383",
+          "v_2n": "0.584426657351311445944987370383",
+          "trunc_delta": "0.0",
+          "stability_trunc": 50.0,
+          "digits_agree": 26,
+          "stability_score": 26.0,
+          "gap": "0.00721099244977859",
+          "passed": true
+        },
+        {
+          "p_poly": [
+            -4,
+            -1,
+            2
+          ],
+          "q_poly": [
+            1,
+            0,
+            1
+          ],
+          "p_str": "-4*n^2 - n + 2",
+          "q_str": "n^2 + 1",
+          "deg_p": 2,
+          "deg_q": 2,
+          "complexity_cost": 17,
+          "v_n": "0.584952616605698242504139741283",
+          "v_2n": "0.584952616605698242504139741283",
+          "trunc_delta": "0.0",
+          "stability_trunc": 50.0,
+          "digits_agree": 26,
+          "stability_score": 26.0,
+          "gap": "0.00773695170416538",
+          "passed": true
+        },
+        {
+          "p_poly": [
+            -1,
+            3,
+            1
+          ],
+          "q_poly": [
+            3,
+            2,
+            0
+          ],
+          "p_str": "-n^2 + 3*n + 1",
+          "q_str": "3*n^2 + 2*n",
+          "deg_p": 2,
+          "deg_q": 2,
+          "complexity_cost": 18,
+          "v_n": "0.578352833938670961119045391129",
+          "v_2n": "0.578352833938670961119045391129",
+          "trunc_delta": "0.0",
+          "stability_trunc": 50.0,
+          "digits_agree": 26,
+          "stability_score": 26.0,
+          "gap": "0.0011371690371381",
+          "passed": true
+        },
+        {
+          "p_poly": [
+            -1,
+            0,
+            0
+          ],
+          "q_poly": [
+            4,
+            -5,
+            0
+          ],
+          "p_str": "-n^2",
+          "q_str": "4*n^2 - 5*n",
+          "deg_p": 2,
+          "deg_q": 2,
+          "complexity_cost": 18,
+          "v_n": "0.581756981029298531841264281671",
+          "v_2n": "0.581756981029298531841264281671",
+          "trunc_delta": "0.0",
+          "stability_trunc": 50.0,
+          "digits_agree": 26,
+          "stability_score": 26.0,
+          "gap": "0.00454131612776567",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "phase": "Phase B: deg<=3, coeff[-3,3]",
+      "max_degree": 3,
+      "coeff_range": [
+        -3,
+        -2,
+        -1,
+        0,
+        1,
+        2,
+        3
+      ],
+      "total_pairs": 2508800,
+      "q_singular_rejected": 4,
+      "ratio_rejected": 85120,
+      "fast_rejected": 629258,
+      "evaluated": 2413,
+      "stable_count": 2391,
+      "elapsed": 300.000319480896,
+      "time_limited": true,
+      "best_gap": "1.35967276287518e-5",
+      "best_stability": 28.0,
+      "best_cost": 6,
+      "candidates": [
+        {
+          "p_poly": [
+            -2,
+            0,
+            1,
+            0
+          ],
+          "q_poly": [
+            0,
+            3,
+            -2,
+            0
+          ],
+          "p_str": "-2*n^3 + n",
+          "q_str": "3*n^2 - 2*n",
+          "deg_p": 3,
+          "deg_q": 2,
+          "complexity_cost": 18,
+          "v_n": "0.571962955167372341384257129627",
+          "v_2n": "0.571962955167372341384257129627",
+          "trunc_delta": "0.0",
+          "stability_trunc": 50.0,
+          "digits_agree": 28,
+          "stability_score": 28.0,
+          "gap": "0.00525270973416052",
+          "passed": true
+        },
+        {
+          "p_poly": [
+            3,
+            -2,
+            1,
+            1
+          ],
+          "q_poly": [
+            0,
+            3,
+            1,
+            0
+          ],
+          "p_str": "3*n^3 - 2*n^2 + n + 1",
+          "q_str": "3*n^2 + n",
+          "deg_p": 3,
+          "deg_q": 2,
+          "complexity_cost": 21,
+          "v_n": "0.5785881734768121742515693126",
+          "v_2n": "0.5785881734768121742515693126",
+          "trunc_delta": "0.0",
+          "stability_trunc": 50.0,
+          "digits_agree": 28,
+          "stability_score": 28.0,
+          "gap": "0.00137250857527931",
+          "passed": true
+        },
+        {
+          "p_poly": [
+            3,
+            1,
+            -3,
+            -2
+          ],
+          "q_poly": [
+            2,
+            0,
+            -2,
+            1
+          ],
+          "p_str": "3*n^3 + n^2 - 3*n - 2",
+          "q_str": "2*n^3 - 2*n + 1",
+          "deg_p": 3,
+          "deg_q": 3,
+          "complexity_cost": 26,
+          "v_n": "0.578673560765264211711411131874",
+          "v_2n": "0.578673560765264211711411131874",
+          "trunc_delta": "0.0",
+          "stability_trunc": 50.0,
+          "digits_agree": 28,
+          "stability_score": 28.0,
+          "gap": "0.00145789586373135",
+          "passed": true
+        },
+        {
+          "p_poly": [
+            3,
+            0,
+            -3,
+            -2
+          ],
+          "q_poly": [
+            2,
+            2,
+            -1,
+            1
+          ],
+          "p_str": "3*n^3 - 3*n - 2",
+          "q_str": "2*n^3 + 2*n^2 - n + 1",
+          "deg_p": 3,
+          "deg_q": 3,
+          "complexity_cost": 26,
+          "v_n": "0.571468948785176132119517259692",
+          "v_2n": "0.571468948785176132119517259692",
+          "trunc_delta": "0.0",
+          "stability_trunc": 50.0,
+          "digits_agree": 28,
+          "stability_score": 28.0,
+          "gap": "0.00574671611635673",
+          "passed": true
+        },
+        {
+          "p_poly": [
+            0,
+            1,
+            1,
+            0
+          ],
+          "q_poly": [
+            1,
+            0,
+            2,
+            0
+          ],
+          "p_str": "n^2 + n",
+          "q_str": "n^3 + 2*n",
+          "deg_p": 2,
+          "deg_q": 3,
+          "complexity_cost": 15,
+          "v_n": "0.573820101650726342331071244556",
+          "v_2n": "0.573820101650726342331071244556",
+          "trunc_delta": "0.0",
+          "stability_trunc": 50.0,
+          "digits_agree": 27,
+          "stability_score": 27.0,
+          "gap": "0.00339556325080652",
+          "passed": true
+        },
+        {
+          "p_poly": [
+            0,
+            -1,
+            -1,
+            0
+          ],
+          "q_poly": [
+            1,
+            1,
+            2,
+            1
+          ],
+          "p_str": "-n^2 - n",
+          "q_str": "n^3 + n^2 + 2*n + 1",
+          "deg_p": 2,
+          "deg_q": 3,
+          "complexity_cost": 17,
+          "v_n": "0.56907109090586433840036877229",
+          "v_2n": "0.56907109090586433840036877229",
+          "trunc_delta": "0.0",
+          "stability_trunc": 50.0,
+          "digits_agree": 27,
+          "stability_score": 27.0,
+          "gap": "0.00814457399566852",
+          "passed": true
+        },
+        {
+          "p_poly": [
+            0,
+            1,
+            2,
+            0
+          ],
+          "q_poly": [
+            3,
+            2,
+            0,
+            0
+          ],
+          "p_str": "n^2 + 2*n",
+          "q_str": "3*n^3 + 2*n^2",
+          "deg_p": 2,
+          "deg_q": 3,
+          "complexity_cost": 18,
+          "v_n": "0.571556694477317962816600415456",
+          "v_2n": "0.571556694477317962816600415456",
+          "trunc_delta": "0.0",
+          "stability_trunc": 50.0,
+          "digits_agree": 27,
+          "stability_score": 27.0,
+          "gap": "0.0056589704242149",
+          "passed": true
+        },
+        {
+          "p_poly": [
+            0,
+            2,
+            0,
+            1
+          ],
+          "q_poly": [
+            3,
+            2,
+            0,
+            0
+          ],
+          "p_str": "2*n^2 + 1",
+          "q_str": "3*n^3 + 2*n^2",
+          "deg_p": 2,
+          "deg_q": 3,
+          "complexity_cost": 18,
+          "v_n": "0.568227476371086992305226424984",
+          "v_2n": "0.568227476371086992305226424984",
+          "trunc_delta": "0.0",
+          "stability_trunc": 50.0,
+          "digits_agree": 27,
+          "stability_score": 27.0,
+          "gap": "0.00898818853044587",
+          "passed": true
+        },
+        {
+          "p_poly": [
+            -1,
+            -1,
+            0,
+            0
+          ],
+          "q_poly": [
+            2,
+            -2,
+            -1,
+            0
+          ],
+          "p_str": "-n^3 - n^2",
+          "q_str": "2*n^3 - 2*n^2 - n",
+          "deg_p": 3,
+          "deg_q": 3,
+          "complexity_cost": 19,
+          "v_n": "0.578140956638375107200184359714",
+          "v_2n": "0.578140956638375107200184359714",
+          "trunc_delta": "0.0",
+          "stability_trunc": 50.0,
+          "digits_agree": 27,
+          "stability_score": 27.0,
+          "gap": "0.000925291736842247",
+          "passed": true
+        },
+        {
+          "p_poly": [
+            0,
+            3,
+            -1,
+            0
+          ],
+          "q_poly": [
+            1,
+            0,
+            -3,
+            -1
+          ],
+          "p_str": "3*n^2 - n",
+          "q_str": "n^3 - 3*n - 1",
+          "deg_p": 2,
+          "deg_q": 3,
+          "complexity_cost": 19,
+          "v_n": "0.580382880583031866804731774269",
+          "v_2n": "0.580382880583031866804731774269",
+          "trunc_delta": "0.0",
+          "stability_trunc": 50.0,
+          "digits_agree": 27,
+          "stability_score": 27.0,
+          "gap": "0.00316721568149901",
+          "passed": true
+        },
+        {
+          "p_poly": [
+            0,
+            -2,
+            0,
+            3
+          ],
+          "q_poly": [
+            3,
+            -1,
+            0,
+            0
+          ],
+          "p_str": "-2*n^2 + 3",
+          "q_str": "3*n^3 - n^2",
+          "deg_p": 2,
+          "deg_q": 3,
+          "complexity_cost": 19,
+          "v_n": "0.572291155969440465030462600144",
+          "v_2n": "0.572291155969440465030462600144",
+          "trunc_delta": "0.0",
+          "stability_trunc": 50.0,
+          "digits_agree": 27,
+          "stability_score": 27.0,
+          "gap": "0.0049245089320924",
+          "passed": true
+        },
+        {
+          "p_poly": [
+            0,
+            1,
+            -1,
+            3
+          ],
+          "q_poly": [
+            2,
+            3,
+            0,
+            0
+          ],
+          "p_str": "n^2 - n + 3",
+          "q_str": "2*n^3 + 3*n^2",
+          "deg_p": 2,
+          "deg_q": 3,
+          "complexity_cost": 20,
+          "v_n": "0.579389230324713447552886393311",
+          "v_2n": "0.579389230324713447552886393311",
+          "trunc_delta": "0.0",
+          "stability_trunc": 50.0,
+          "digits_agree": 27,
+          "stability_score": 27.0,
+          "gap": "0.00217356542318059",
+          "passed": true
+        },
+        {
+          "p_poly": [
+            3,
+            1,
+            0,
+            1
+          ],
+          "q_poly": [
+            1,
+            1,
+            0,
+            -1
+          ],
+          "p_str": "3*n^3 + n^2 + 1",
+          "q_str": "n^3 + n^2 - 1",
+          "deg_p": 3,
+          "deg_q": 3,
+          "complexity_cost": 20,
+          "v_n": "0.582026305912687044454714046802",
+          "v_2n": "0.582026305912687044454714046802",
+          "trunc_delta": "0.0",
+          "stability_trunc": 50.0,
+          "digits_agree": 27,
+          "stability_score": 27.0,
+          "gap": "0.00481064101115418",
+          "passed": true
+        },
+        {
+          "p_poly": [
+            0,
+            -1,
+            3,
+            1
+          ],
+          "q_poly": [
+            1,
+            2,
+            2,
+            0
+          ],
+          "p_str": "-n^2 + 3*n + 1",
+          "q_str": "n^3 + 2*n^2 + 2*n",
+          "deg_p": 2,
+          "deg_q": 3,
+          "complexity_cost": 20,
+          "v_n": "0.582540899472492947048297114035",
+          "v_2n": "0.582540899472492947048297114035",
+          "trunc_delta": "0.0",
+          "stability_trunc": 50.0,
+          "digits_agree": 27,
+          "stability_score": 27.0,
+          "gap": "0.00532523457096009",
+          "passed": true
+        },
+        {
+          "p_poly": [
+            1,
+            0,
+            -1,
+            3
+          ],
+          "q_poly": [
+            1,
+            0,
+            1,
+            -1
+          ],
+          "p_str": "n^3 - n + 3",
+          "q_str": "n^3 + n - 1",
+          "deg_p": 3,
+          "deg_q": 3,
+          "complexity_cost": 20,
+          "v_n": "0.571594031403603368431846863021",
+          "v_2n": "0.571594031403603368431846863021",
+          "trunc_delta": "0.0",
+          "stability_trunc": 50.0,
+          "digits_agree": 27,
+          "stability_score": 27.0,
+          "gap": "0.00562163349792949",
+          "passed": true
+        },
+        {
+          "p_poly": [
+            0,
+            3,
+            -3,
+            2
+          ],
+          "q_poly": [
+            1,
+            2,
+            0,
+            0
+          ],
+          "p_str": "3*n^2 - 3*n + 2",
+          "q_str": "n^3 + 2*n^2",
+          "deg_p": 2,
+          "deg_q": 3,
+          "complexity_cost": 21,
+          "v_n": "0.573624612308917796797464056284",
+          "v_2n": "0.573624612308917796797464056284",
+          "trunc_delta": "0.0",
+          "stability_trunc": 50.0,
+          "digits_agree": 27,
+          "stability_score": 27.0,
+          "gap": "0.00359105259261506",
+          "passed": true
+        },
+        {
+          "p_poly": [
+            1,
+            -3,
+            -2,
+            0
+          ],
+          "q_poly": [
+            0,
+            2,
+            -3,
+            0
+          ],
+          "p_str": "n^3 - 3*n^2 - 2*n",
+          "q_str": "2*n^2 - 3*n",
+          "deg_p": 3,
+          "deg_q": 2,
+          "complexity_cost": 21,
+          "v_n": "0.58130452686842592194441006843",
+          "v_2n": "0.58130452686842592194441006843",
+          "trunc_delta": "0.0",
+          "stability_trunc": 50.0,
+          "digits_agree": 27,
+          "stability_score": 27.0,
+          "gap": "0.00408886196689306",
+          "passed": true
+        },
+        {
+          "p_poly": [
+            -1,
+            2,
+            2,
+            0
+          ],
+          "q_poly": [
+            2,
+            0,
+            3,
+            0
+          ],
+          "p_str": "-n^3 + 2*n^2 + 2*n",
+          "q_str": "2*n^3 + 3*n",
+          "deg_p": 3,
+          "deg_q": 3,
+          "complexity_cost": 22,
+          "v_n": "0.578903186135732034478625736898",
+          "v_2n": "0.578903186135732034478625736898",
+          "trunc_delta": "0.0",
+          "stability_trunc": 50.0,
+          "digits_agree": 27,
+          "stability_score": 27.0,
+          "gap": "0.00168752123419917",
+          "passed": true
+        },
+        {
+          "p_poly": [
+            -1,
+            3,
+            0,
+            1
+          ],
+          "q_poly": [
+            2,
+            0,
+            3,
+            0
+          ],
+          "p_str": "-n^3 + 3*n^2 + 1",
+          "q_str": "2*n^3 + 3*n",
+          "deg_p": 3,
+          "deg_q": 3,
+          "complexity_cost": 22,
+          "v_n": "0.573931065151267036501723074622",
+          "v_2n": "0.573931065151267036501723074622",
+          "trunc_delta": "0.0",
+          "stability_trunc": 50.0,
+          "digits_agree": 27,
+          "stability_score": 27.0,
+          "gap": "0.00328459975026582",
+          "passed": true
+        },
+        {
+          "p_poly": [
+            0,
+            2,
+            2,
+            -3
+          ],
+          "q_poly": [
+            1,
+            2,
+            -2,
+            0
+          ],
+          "p_str": "2*n^2 + 2*n - 3",
+          "q_str": "n^3 + 2*n^2 - 2*n",
+          "deg_p": 2,
+          "deg_q": 3,
+          "complexity_cost": 22,
+          "v_n": "0.582031837406620904012153454687",
+          "v_2n": "0.582031837406620904012153454687",
+          "trunc_delta": "0.0",
+          "stability_trunc": 50.0,
+          "digits_agree": 27,
+          "stability_score": 27.0,
+          "gap": "0.00481617250508804",
+          "passed": true
+        },
+        {
+          "p_poly": [
+            2,
+            -1,
+            2,
+            0
+          ],
+          "q_poly": [
+            2,
+            1,
+            -1,
+            -1
+          ],
+          "p_str": "2*n^3 - n^2 + 2*n",
+          "q_str": "2*n^3 + n^2 - n - 1",
+          "deg_p": 3,
+          "deg_q": 3,
+          "complexity_cost": 22,
+          "v_n": "0.582063825549737758458382160586",
+          "v_2n": "0.582063825549737758458382160586",
+          "trunc_delta": "0.0",
+          "stability_trunc": 50.0,
+          "digits_agree": 27,
+          "stability_score": 27.0,
+          "gap": "0.0048481606482049",
+          "passed": true
+        },
+        {
+          "p_poly": [
+            3,
+            3,
+            -2,
+            -1
+          ],
+          "q_poly": [
+            0,
+            2,
+            1,
+            0
+          ],
+          "p_str": "3*n^3 + 3*n^2 - 2*n - 1",
+          "q_str": "2*n^2 + n",
+          "deg_p": 3,
+          "deg_q": 2,
+          "complexity_cost": 22,
+          "v_n": "0.572325399185459538313274928103",
+          "v_2n": "0.572325399185459538313274928103",
+          "trunc_delta": "0.0",
+          "stability_trunc": 50.0,
+          "digits_agree": 27,
+          "stability_score": 27.0,
+          "gap": "0.00489026571607332",
+          "passed": true
+        },
+        {
+          "p_poly": [
+            1,
+            0,
+            2,
+            2
+          ],
+          "q_poly": [
+            1,
+            -1,
+            -3,
+            0
+          ],
+          "p_str": "n^3 + 2*n + 2",
+          "q_str": "n^3 - n^2 - 3*n",
+          "deg_p": 3,
+          "deg_q": 3,
+          "complexity_cost": 22,
+          "v_n": "0.571020523955032934944180830384",
+          "v_2n": "0.571020523955032934944180830384",
+          "trunc_delta": "0.0",
+          "stability_trunc": 50.0,
+          "digits_agree": 27,
+          "stability_score": 27.0,
+          "gap": "0.00619514094649993",
+          "passed": true
+        },
+        {
+          "p_poly": [
+            -1,
+            1,
+            3,
+            0
+          ],
+          "q_poly": [
+            1,
+            1,
+            3,
+            0
+          ],
+          "p_str": "-n^3 + n^2 + 3*n",
+          "q_str": "n^3 + n^2 + 3*n",
+          "deg_p": 3,
+          "deg_q": 3,
+          "complexity_cost": 22,
+          "v_n": "0.58681190830107259626552788898",
+          "v_2n": "0.58681190830107259626552788898",
+          "trunc_delta": "0.0",
+          "stability_trunc": 50.0,
+          "digits_agree": 27,
+          "stability_score": 27.0,
+          "gap": "0.00959624339953974",
+          "passed": true
+        },
+        {
+          "p_poly": [
+            -1,
+            3,
+            -1,
+            2
+          ],
+          "q_poly": [
+            0,
+            2,
+            3,
+            0
+          ],
+          "p_str": "-n^3 + 3*n^2 - n + 2",
+          "q_str": "2*n^2 + 3*n",
+          "deg_p": 3,
+          "deg_q": 2,
+          "complexity_cost": 22,
+          "v_n": "0.567484922178039509394287378837",
+          "v_2n": "0.567484922178039509394287378837",
+          "trunc_delta": "0.0",
+          "stability_trunc": 50.0,
+          "digits_agree": 27,
+          "stability_score": 27.0,
+          "gap": "0.00973074272349335",
+          "passed": true
+        }
+      ]
+    }
+  ]
+}
