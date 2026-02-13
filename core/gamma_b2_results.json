@@ -1,0 +1,60 @@
+{
+  "target": "gamma (Euler-Mascheroni)",
+  "target_value": "0.5772156649015328606065120900824024310421593359399235988057672348848677267776646709369470632917467495",
+  "parameters": {
+    "N0": 16,
+    "N1": 64,
+    "N2": 128,
+    "N2_deep": 128,
+    "N2_deeper": 256,
+    "G0": "0.000000999999999999999954748111825886258685613938723690807819366455",
+    "G1": "0.00000000010000000000000000364321973154977415791655470655996396089904",
+    "Smin": 20,
+    "bucket_decimals": 8,
+    "bucket_max": 3,
+    "window_size": 50000,
+    "futility_windows": 5,
+    "max_degree": 3,
+    "coeff_range": [
+      -5,
+      -4,
+      -3,
+      -2,
+      -1,
+      0,
+      1,
+      2,
+      3,
+      4,
+      5
+    ]
+  },
+  "stats": {
+    "total_checked": 300000,
+    "num_fail": 49,
+    "s0_pass": 0,
+    "s0_fail": 299950,
+    "s1_pass": 0,
+    "s1_fail": 0,
+    "s2_pass": 0,
+    "s2_fail": 0,
+    "cluster_discards": 0,
+    "futility_triggered": true,
+    "windows_best": [
+      Infinity,
+      Infinity,
+      Infinity,
+      Infinity,
+      Infinity,
+      Infinity
+    ],
+    "overall_best_gap": Infinity,
+    "stop_reason": "FUTILITY",
+    "elapsed": 93.45670533180237
+  },
+  "anti_cluster": {
+    "total_buckets": 0,
+    "discards": 0
+  },
+  "top_k": []
+}
