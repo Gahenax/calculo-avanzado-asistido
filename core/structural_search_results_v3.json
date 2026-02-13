@@ -1,0 +1,233 @@
+{
+  "phi (calibration)": {
+    "entropy_report": {
+      "omega_0": 116964,
+      "h_0": 16.835705029771795,
+      "steps": [
+        {
+          "name": "Canonicalization",
+          "before": 116964,
+          "after": 116964,
+          "h_before": 16.835705029771795,
+          "h_after": 16.835705029771795,
+          "ua": 0.0,
+          "cumulative_ua": 0.0,
+          "details": "Removed 0 duplicate polys"
+        },
+        {
+          "name": "Divergence prefilter",
+          "before": 116964,
+          "after": 113562,
+          "h_before": 16.835705029771795,
+          "h_after": 16.79312063689525,
+          "ua": 0.04258439287654525,
+          "cumulative_ua": 0.04258439287654525,
+          "details": "Rejected 3,402 (inf=480 | magnitude=50 | oscillation=2854 | oscillation_nan=18)"
+        },
+        {
+          "name": "Ballpark gating (2-depth)",
+          "before": 113562,
+          "after": 274,
+          "h_before": 16.79312063689525,
+          "h_after": 8.098032082960527,
+          "ua": 8.695088553934722,
+          "cumulative_ua": 8.737672946811267,
+          "details": "Rejected 113,288"
+        },
+        {
+          "name": "Stability triage (N,2N)",
+          "before": 274,
+          "after": 272,
+          "h_before": 8.098032082960527,
+          "h_after": 8.087462841250339,
+          "ua": 0.010569241710188138,
+          "cumulative_ua": 8.748242188521456,
+          "details": "Rejected 2"
+        },
+        {
+          "name": "Full multi-depth + tolerance",
+          "before": 272,
+          "after": 0,
+          "h_before": 8.087462841250339,
+          "h_after": 0,
+          "ua": 8.087462841250339,
+          "cumulative_ua": 16.835705029771795,
+          "details": "Depth rej=8, tol rej=264"
+        }
+      ]
+    },
+    "candidates": []
+  },
+  "4/pi (calibration)": {
+    "entropy_report": {
+      "omega_0": 116964,
+      "h_0": 16.835705029771795,
+      "steps": [
+        {
+          "name": "Canonicalization",
+          "before": 116964,
+          "after": 116964,
+          "h_before": 16.835705029771795,
+          "h_after": 16.835705029771795,
+          "ua": 0.0,
+          "cumulative_ua": 0.0,
+          "details": "Removed 0 duplicate polys"
+        },
+        {
+          "name": "Divergence prefilter",
+          "before": 116964,
+          "after": 113562,
+          "h_before": 16.835705029771795,
+          "h_after": 16.79312063689525,
+          "ua": 0.04258439287654525,
+          "cumulative_ua": 0.04258439287654525,
+          "details": "Rejected 3,402 (inf=480 | magnitude=50 | oscillation=2854 | oscillation_nan=18)"
+        },
+        {
+          "name": "Ballpark gating (2-depth)",
+          "before": 113562,
+          "after": 281,
+          "h_before": 16.79312063689525,
+          "h_after": 8.134426320220927,
+          "ua": 8.658694316674323,
+          "cumulative_ua": 8.701278709550868,
+          "details": "Rejected 113,281"
+        },
+        {
+          "name": "Stability triage (N,2N)",
+          "before": 281,
+          "after": 280,
+          "h_before": 8.134426320220927,
+          "h_after": 8.129283016944967,
+          "ua": 0.0051433032759593544,
+          "cumulative_ua": 8.706422012826827,
+          "details": "Rejected 1"
+        },
+        {
+          "name": "Full multi-depth + tolerance",
+          "before": 280,
+          "after": 1,
+          "h_before": 8.129283016944967,
+          "h_after": 0.0,
+          "ua": 8.129283016944967,
+          "cumulative_ua": 16.835705029771795,
+          "details": "Depth rej=11, tol rej=268"
+        }
+      ]
+    },
+    "candidates": [
+      {
+        "target_name": "4/pi (calibration)",
+        "a_poly": [
+          1,
+          0,
+          0
+        ],
+        "b_poly": [
+          0,
+          2,
+          1
+        ],
+        "a_str": "n^2",
+        "b_str": "2*n + 1",
+        "a_complexity": [
+          1,
+          1,
+          0
+        ],
+        "b_complexity": [
+          3,
+          2,
+          1
+        ],
+        "approximation": "1.27323954473516268615107010698",
+        "depths": [
+          40,
+          80,
+          160,
+          320
+        ],
+        "values": [
+          "1.27323954473516268615107",
+          "1.27323954473516268615107",
+          "1.27323954473516268615107",
+          "1.27323954473516268615107"
+        ],
+        "deltas": [
+          "0.0",
+          "0.0",
+          "0.0"
+        ],
+        "stability_score": "0.0",
+        "abs_error": "1.97215226305253e-31",
+        "rel_error": "1.54892476534158e-31",
+        "tail_pass": true,
+        "tail_metric": "0.0",
+        "cross_pass": true,
+        "cross_metric": "5.0706024e+26",
+        "verdict": "CANDIDATE",
+        "discard_condition": "Invalidate if higher-depth eval diverges or tail fails at depth>320.",
+        "rank": 1
+      }
+    ]
+  },
+  "gamma (Euler-Mascheroni)": {
+    "entropy_report": {
+      "omega_0": 116964,
+      "h_0": 16.835705029771795,
+      "steps": [
+        {
+          "name": "Canonicalization",
+          "before": 116964,
+          "after": 116964,
+          "h_before": 16.835705029771795,
+          "h_after": 16.835705029771795,
+          "ua": 0.0,
+          "cumulative_ua": 0.0,
+          "details": "Removed 0 duplicate polys"
+        },
+        {
+          "name": "Divergence prefilter",
+          "before": 116964,
+          "after": 113562,
+          "h_before": 16.835705029771795,
+          "h_after": 16.79312063689525,
+          "ua": 0.04258439287654525,
+          "cumulative_ua": 0.04258439287654525,
+          "details": "Rejected 3,402 (inf=480 | magnitude=50 | oscillation=2854 | oscillation_nan=18)"
+        },
+        {
+          "name": "Ballpark gating (2-depth)",
+          "before": 113562,
+          "after": 294,
+          "h_before": 16.79312063689525,
+          "h_after": 8.199672344836364,
+          "ua": 8.593448292058886,
+          "cumulative_ua": 8.636032684935431,
+          "details": "Rejected 113,268"
+        },
+        {
+          "name": "Stability triage (N,2N)",
+          "before": 294,
+          "after": 292,
+          "h_before": 8.199672344836364,
+          "h_after": 8.189824558880018,
+          "ua": 0.009847785956345945,
+          "cumulative_ua": 8.645880470891777,
+          "details": "Rejected 2"
+        },
+        {
+          "name": "Full multi-depth + tolerance",
+          "before": 292,
+          "after": 0,
+          "h_before": 8.189824558880018,
+          "h_after": 0,
+          "ua": 8.189824558880018,
+          "cumulative_ua": 16.835705029771795,
+          "details": "Depth rej=8, tol rej=284"
+        }
+      ]
+    },
+    "candidates": []
+  }
+}

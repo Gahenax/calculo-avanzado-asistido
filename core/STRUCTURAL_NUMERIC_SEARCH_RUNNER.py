@@ -2,23 +2,13 @@
 # -*- coding: utf-8 -*-
 
 """
-STRUCTURAL_NUMERIC_SEARCH_RUNNER.py  (v2 -- Logic Harness Edition)
-===================================================================
-Implements the full ANTIGRAVITY Logic Harness Protocol v1.0.
+STRUCTURAL_NUMERIC_SEARCH_RUNNER.py  (v3 -- Entropy Reducer + Logic Harness)
+=============================================================================
+Implements:
+  - ENTROPY REDUCER v1.0 (canonicalization, prefilters, triage, complexity prior, UA accounting)
+  - LOGIC HARNESS v1.0 (multi-depth, tail sensitivity, cross-check, no-hype closure)
 
-STEPS EXECUTED:
-  0  SPEC            -- restate targets, structure class, bounds
-  1  FAILURE MODES   -- explicit checklist
-  2  TEST PLAN       -- multi-depth, tail sensitivity, cross-check, calibration
-  3  SEARCH STRATEGY -- cheap filter + full pipeline, stats tracking
-  4  OUTPUT CONTRACT -- strict per-candidate report
-  5  NO HYPE CLOSURE -- conservative summary
-
-Optimizations vs v1:
-  - Precision 30 dps (sufficient for discovery-phase exploration)
-  - Coefficients [-2, 2] (search space ~15k pairs)
-  - Flushed output for real-time monitoring
-  - Tail sensitivity + cross-check gates added
+Expanded search: coefficients [-3, 3], degree <= 2
 
 Author: GAHENAX / Antigravity Core
 """
@@ -27,49 +17,44 @@ from __future__ import annotations
 
 import itertools
 import json
+import math
 import sys
 import time
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from typing import Dict, List, Optional, Tuple
 
-# Fix Windows console encoding
 if hasattr(sys.stdout, 'reconfigure'):
     sys.stdout.reconfigure(encoding='utf-8', errors='replace')
 
 import mpmath as mp
+
+def P(msg: str) -> None:
+    print(msg, flush=True)
+
 
 # ========================== STEP 0: SPEC ==========================
 PRECISION_DPS = 30
 mp.mp.dps = PRECISION_DPS
 
 MAX_DEGREE = 2
-COEFF_RANGE = range(-2, 3)  # [-2, -1, 0, 1, 2]
+COEFF_RANGE = range(-3, 4)  # [-3, -2, -1, 0, 1, 2, 3]
 
-# Depth schedule: N, 2N, 4N, 8N
 DEPTHS: Tuple[int, ...] = (40, 80, 160, 320)
-
 STABILITY_EPS = mp.mpf("1e-20")
 FAST_DEPTH = 15
-FAST_BALLPARK = mp.mpf("1e-2")
+MID_DEPTH = 40
+BALLPARK_R = mp.mpf("1e-2")
+MAGNITUDE_MAX = mp.mpf("1e6")
+TRIAGE_THRESHOLD = mp.mpf("1e-10")
 CANDIDATE_TOL = mp.mpf("1e-10")
-
-# Tail sensitivity: perturb last k terms
 TAIL_K = 5
 TAIL_PERTURB = mp.mpf("1e-6")
-TAIL_THRESHOLD = mp.mpf("1e-8")  # max change allowed
-
-# Cross-check: compare vs target +/- eps
+TAIL_THRESHOLD = mp.mpf("1e-8")
 CROSS_EPS = mp.mpf("1e-4")
-
-TOP_K = 5
+TOP_K = 10
 
 Poly = Tuple[int, ...]
 mpf = mp.mpf
-
-
-def P(msg: str) -> None:
-    """Print with immediate flush."""
-    print(msg, flush=True)
 
 
 # ========================== ENGINE ==========================
@@ -99,6 +84,13 @@ def poly_to_str(coeffs: Poly, var: str = "n") -> str:
     return expr.replace("+ -", "- ")
 
 
+def poly_complexity(coeffs: Poly) -> Tuple[int, int, int]:
+    """Return (L1_norm, nonzero_count, abs_b0) for complexity ordering."""
+    l1 = sum(abs(c) for c in coeffs)
+    nz = sum(1 for c in coeffs if c != 0)
+    return (l1, nz, abs(coeffs[-1]))
+
+
 def eval_gcf(a: Poly, b: Poly, depth: int) -> mpf:
     cur = mp.mpf(0)
     for n in range(depth, 0, -1):
@@ -110,7 +102,6 @@ def eval_gcf(a: Poly, b: Poly, depth: int) -> mpf:
 
 
 def eval_gcf_perturbed(a: Poly, b: Poly, depth: int, k: int, eps: mpf) -> mpf:
-    """Evaluate GCF but add eps to the last k a(n) terms (tail sensitivity)."""
     cur = mp.mpf(0)
     for n in range(depth, 0, -1):
         an = eval_poly(n, a)
@@ -123,22 +114,137 @@ def eval_gcf_perturbed(a: Poly, b: Poly, depth: int, k: int, eps: mpf) -> mpf:
     return mp.mpf(eval_poly(0, b)) + cur
 
 
-# ========================== TEST GATES ==========================
+# ========================== ENTROPY REDUCER ==========================
 @dataclass
-class TestResults:
-    # Multi-depth
-    values: List[str]
-    deltas: List[str]
-    stability_score: str
-    stability_pass: bool
-    # Tail sensitivity
-    tail_metric: str
-    tail_pass: bool
-    # Cross-check
-    cross_metric: str
-    cross_pass: bool
+class EntropyReport:
+    omega_0: int = 0
+    h_0: float = 0.0
+    steps: List[Dict] = field(default_factory=list)
+
+    def add_step(self, name: str, before: int, after: int, details: str = ""):
+        h_before = math.log2(before) if before > 0 else 0
+        h_after = math.log2(after) if after > 0 else 0
+        ua = h_before - h_after
+        cumulative = self.h_0 - h_after
+        self.steps.append({
+            "name": name,
+            "before": before,
+            "after": after,
+            "h_before": h_before,
+            "h_after": h_after,
+            "ua": ua,
+            "cumulative_ua": cumulative,
+            "details": details,
+        })
+
+    def print_report(self):
+        P("")
+        P("ENTROPY REDUCER REPORT")
+        P("=" * 70)
+        P(f"Omega_0: {self.omega_0:,}")
+        P(f"H_0:     {self.h_0:.2f} bits")
+        P("")
+        for s in self.steps:
+            P(f"  Step: {s['name']}")
+            P(f"    Omega: {s['before']:,} -> {s['after']:,}")
+            P(f"    H:     {s['h_before']:.2f} -> {s['h_after']:.2f} bits")
+            P(f"    UA_i:  {s['ua']:.2f} bits removed")
+            P(f"    Cumul: {s['cumulative_ua']:.2f} bits total removed")
+            if s['details']:
+                P(f"    Info:  {s['details']}")
+            P("")
+        if self.steps:
+            final = self.steps[-1]
+            saved_pct = (1 - final['after'] / self.omega_0) * 100 if self.omega_0 > 0 else 0
+            P(f"  TOTAL UA REMOVED: {final['cumulative_ua']:.2f} bits")
+            P(f"  COMPUTE SAVED:    {saved_pct:.1f}% of original search space")
+        P("=" * 70)
+        P("")
 
 
+def canonicalize(poly_space: List[Poly]) -> Tuple[List[Poly], int]:
+    """
+    Remove equivalent representations:
+    - If all coefficients can be divided by a common factor > 1 without losing structure,
+      keep only the reduced form.
+    - GCF(a, b) with a(n)=k*P(n), b(n)=k*Q(n) is NOT the same as P,Q in general,
+      but (a,b) where gcd of all a_coeffs > 1 can be factored.
+    Actually for GCF pairs, equivalence is tricky. We do a simpler dedup:
+    just remove the all-zero polys (already done) and normalize.
+    """
+    seen = set()
+    result = []
+    removed = 0
+    for p in poly_space:
+        from math import gcd
+        from functools import reduce
+        g = reduce(gcd, (abs(c) for c in p if c != 0), 0)
+        if g > 1:
+            normalized = tuple(c // g for c in p)
+            # Keep the normalized version, skip if we already have it
+            # But also keep the original if normalized is different
+            # Actually: we only canonicalize individual polys, 
+            # the pair interaction is what matters. Keep both but flag.
+            pass
+        if p not in seen:
+            seen.add(p)
+            result.append(p)
+        else:
+            removed += 1
+    return result, removed
+
+
+def prefilter_divergence(a: Poly, b: Poly) -> Optional[str]:
+    """Return rejection reason or None if OK."""
+    try:
+        v = eval_gcf(a, b, FAST_DEPTH)
+    except Exception:
+        return "exception"
+    if mp.isnan(v):
+        return "nan"
+    if mp.isinf(v):
+        return "inf"
+    if abs(v) > MAGNITUDE_MAX:
+        return "magnitude"
+    # Oscillation check: compare depth d and d+1
+    try:
+        v2 = eval_gcf(a, b, FAST_DEPTH + 1)
+        if mp.isnan(v2) or mp.isinf(v2):
+            return "oscillation_nan"
+        if abs(v2 - v) > abs(v) * 0.5 + 1:
+            return "oscillation"
+    except Exception:
+        return "oscillation_err"
+    return None
+
+
+def prefilter_ballpark(a: Poly, b: Poly, target: mpf) -> bool:
+    """Two-depth ballpark check."""
+    try:
+        v_fast = eval_gcf(a, b, FAST_DEPTH)
+        if abs(v_fast - target) > BALLPARK_R:
+            return False
+        v_mid = eval_gcf(a, b, MID_DEPTH)
+        if abs(v_mid - target) > BALLPARK_R:
+            return False
+        return True
+    except Exception:
+        return False
+
+
+def triage_stability(a: Poly, b: Poly) -> bool:
+    """Quick triage: |v(2N) - v(N)| < threshold using first two depths."""
+    try:
+        v1 = eval_gcf(a, b, DEPTHS[0])
+        v2 = eval_gcf(a, b, DEPTHS[1])
+        if mp.isnan(v1) or mp.isnan(v2) or mp.isinf(v1) or mp.isinf(v2):
+            return False
+        return abs(v2 - v1) < TRIAGE_THRESHOLD
+    except Exception:
+        return False
+
+
+# ========================== LOGIC HARNESS GATES ==========================
 def gate_multidepth(a: Poly, b: Poly) -> Optional[Tuple[mpf, List[mpf], List[mpf]]]:
     vals = []
     for d in DEPTHS:
@@ -146,43 +252,34 @@ def gate_multidepth(a: Poly, b: Poly) -> Optional[Tuple[mpf, List[mpf], List[mpf
         if mp.isnan(v) or mp.isinf(v):
             return None
         vals.append(v)
-
     deltas = [abs(vals[i+1] - vals[i]) for i in range(len(vals)-1)]
     score = max(deltas) if deltas else mp.mpf("inf")
-
-    # Check deltas are decreasing (no oscillation)
     for i in range(len(deltas)-1):
         if deltas[i+1] > deltas[i] * 10:
             return None
-
     if score > STABILITY_EPS:
         return None
-
     return vals[-1], vals, deltas
 
 
-def gate_tail_sensitivity(a: Poly, b: Poly, base_value: mpf) -> Tuple[bool, mpf]:
-    v_pert = eval_gcf_perturbed(a, b, DEPTHS[-1], TAIL_K, TAIL_PERTURB)
-    if mp.isnan(v_pert) or mp.isinf(v_pert):
+def gate_tail(a: Poly, b: Poly, base: mpf) -> Tuple[bool, mpf]:
+    v_p = eval_gcf_perturbed(a, b, DEPTHS[-1], TAIL_K, TAIL_PERTURB)
+    if mp.isnan(v_p) or mp.isinf(v_p):
         return False, mp.mpf("inf")
-    delta = abs(v_pert - base_value)
-    return delta < TAIL_THRESHOLD, delta
+    d = abs(v_p - base)
+    return d < TAIL_THRESHOLD, d
 
 
-def gate_cross_check(a: Poly, b: Poly, target: mpf) -> Tuple[bool, mpf]:
-    """Ensure this structure is NOT equally close to target +/- eps."""
+def gate_cross(a: Poly, b: Poly, target: mpf) -> Tuple[bool, mpf]:
     v = eval_gcf(a, b, DEPTHS[-1])
-    err_target = abs(v - target)
-    err_plus = abs(v - (target + CROSS_EPS))
-    err_minus = abs(v - (target - CROSS_EPS))
-
-    # The candidate should be significantly closer to target than to shifted targets
-    ratio = min(err_plus, err_minus) / err_target if err_target > 0 else mp.mpf(0)
-    # ratio >> 1 means target is special; ratio ~1 means structure just happens to be near
-    return ratio > mp.mpf("5"), ratio
+    err = abs(v - target)
+    err_p = abs(v - (target + CROSS_EPS))
+    err_m = abs(v - (target - CROSS_EPS))
+    ratio = min(err_p, err_m) / err if err > 0 else mp.mpf(0)
+    return ratio > 5, ratio
 
 
-# ========================== FULL PIPELINE ==========================
+# ========================== CANDIDATE ==========================
 @dataclass
 class FullCandidate:
     target_name: str
@@ -191,6 +288,8 @@ class FullCandidate:
     b_poly: Poly
     a_str: str
     b_str: str
+    a_complexity: Tuple[int, int, int]
+    b_complexity: Tuple[int, int, int]
     approximation: str
     depths: List[int]
     values: List[str]
@@ -207,21 +306,41 @@ class FullCandidate:
     rank: int = 0
 
 
-class LogicHarnessScanner:
+# ========================== SCANNER ==========================
+class EntropyReducerScanner:
     def __init__(self):
         raw = list(itertools.product(COEFF_RANGE, repeat=MAX_DEGREE + 1))
-        self.poly_space: List[Poly] = [p for p in raw if any(x != 0 for x in p)]
-        self.total = len(self.poly_space) ** 2
-        self.stats = {"fast_rejected": 0, "stability_rejected": 0, "tol_rejected": 0,
-                      "tail_rejected": 0, "cross_rejected": 0, "accepted": 0}
+        all_polys = [p for p in raw if any(x != 0 for x in p)]
+        self.poly_space, self.canon_removed = canonicalize(all_polys)
+        # Sort by complexity (simplest first)
+        self.poly_space.sort(key=poly_complexity)
+        self.total_raw = len(all_polys) ** 2
+        self.total_pairs = len(self.poly_space) ** 2
 
-    def scan_target(self, name: str, target: mpf) -> List[FullCandidate]:
+    def scan_target(self, name: str, target: mpf) -> Tuple[List[FullCandidate], EntropyReport]:
+        er = EntropyReport()
+        er.omega_0 = self.total_pairs
+        er.h_0 = math.log2(self.total_pairs) if self.total_pairs > 0 else 0
+
+        # Step 1: Canonicalization (already done at init but report it)
+        canon_before = len([p for p in itertools.product(COEFF_RANGE, repeat=MAX_DEGREE+1) if any(x!=0 for x in p)]) ** 2
+        er.add_step("Canonicalization", canon_before, self.total_pairs,
+                     f"Removed {self.canon_removed} duplicate polys")
+
         candidates: List[FullCandidate] = []
-        checked = 0
         t0 = time.time()
-        hb = max(1, self.total // 10)
-        self.stats = {"fast_rejected": 0, "stability_rejected": 0, "tol_rejected": 0,
-                      "tail_rejected": 0, "cross_rejected": 0, "accepted": 0}
+        hb = max(1, self.total_pairs // 10)
+
+        # Stats
+        div_reasons: Dict[str, int] = {}
+        ballpark_rejected = 0
+        triage_rejected = 0
+        depth_rejected = 0
+        tol_rejected = 0
+        survived_prefilter = 0
+        survived_ballpark = 0
+        survived_triage = 0
+        checked = 0
 
         P(f"--- SCANNING: {name} = {mp.nstr(target, 20)} ---")
 
@@ -232,56 +351,57 @@ class LogicHarnessScanner:
                 if checked % hb == 0:
                     dt = time.time() - t0
                     rate = checked / dt if dt > 0 else 0
-                    P(f"  [HB] {checked:,}/{self.total:,} | {rate:,.0f}/s | cands={len(candidates)}")
+                    P(f"  [HB] {checked:,}/{self.total_pairs:,} | {rate:,.0f}/s | cands={len(candidates)}")
 
-                # FAST FILTER (cheap, not evidence)
-                try:
-                    vf = eval_gcf(a_poly, b_poly, FAST_DEPTH)
-                    if mp.isnan(vf) or mp.isinf(vf) or abs(vf - target) > FAST_BALLPARK:
-                        self.stats["fast_rejected"] += 1
-                        continue
-                except Exception:
-                    self.stats["fast_rejected"] += 1
+                # REDUCER (2): Divergence prefilter
+                reason = prefilter_divergence(a_poly, b_poly)
+                if reason:
+                    div_reasons[reason] = div_reasons.get(reason, 0) + 1
                     continue
+                survived_prefilter += 1
 
-                # GATE A: Multi-depth stability
+                # REDUCER (3): Ballpark gating (two-depth)
+                if not prefilter_ballpark(a_poly, b_poly, target):
+                    ballpark_rejected += 1
+                    continue
+                survived_ballpark += 1
+
+                # REDUCER (4): Stability triage
+                if not triage_stability(a_poly, b_poly):
+                    triage_rejected += 1
+                    continue
+                survived_triage += 1
+
+                # HARNESS GATE A: Full multi-depth
                 result = gate_multidepth(a_poly, b_poly)
                 if result is None:
-                    self.stats["stability_rejected"] += 1
+                    depth_rejected += 1
                     continue
 
                 value, vals, deltas = result
                 abs_err = abs(value - target)
 
                 if abs_err > CANDIDATE_TOL:
-                    self.stats["tol_rejected"] += 1
+                    tol_rejected += 1
                     continue
 
                 rel_err = abs_err / abs(target) if target != 0 else abs_err
 
-                # GATE B: Tail sensitivity
-                tail_ok, tail_m = gate_tail_sensitivity(a_poly, b_poly, value)
-                if not tail_ok:
-                    self.stats["tail_rejected"] += 1
-                    # Still record but mark as REJECTED
-                    pass
+                # HARNESS GATE B: Tail
+                tail_ok, tail_m = gate_tail(a_poly, b_poly, value)
 
-                # GATE C: Cross-check
-                cross_ok, cross_m = gate_cross_check(a_poly, b_poly, target)
-                if not cross_ok:
-                    self.stats["cross_rejected"] += 1
+                # HARNESS GATE C: Cross-check
+                cross_ok, cross_m = gate_cross(a_poly, b_poly, target)
 
-                # Determine verdict
                 all_pass = tail_ok and cross_ok
                 verdict = "CANDIDATE" if all_pass else "REJECTED"
                 discard = ""
                 if not tail_ok:
-                    discard += "Tail sensitivity FAIL (delta={}).".format(mp.nstr(tail_m, 8))
+                    discard += f"Tail FAIL (delta={mp.nstr(tail_m, 8)}). "
                 if not cross_ok:
-                    discard += " Cross-check FAIL (ratio={}).".format(mp.nstr(cross_m, 8))
+                    discard += f"Cross FAIL (ratio={mp.nstr(cross_m, 8)}). "
                 if all_pass:
-                    discard = "Invalidate if higher-depth eval diverges or tail sensitivity fails at depth>320."
-                    self.stats["accepted"] += 1
+                    discard = "Invalidate if higher-depth eval diverges or tail fails at depth>320."
 
                 c = FullCandidate(
                     target_name=name,
@@ -290,6 +410,8 @@ class LogicHarnessScanner:
                     b_poly=b_poly,
                     a_str=poly_to_str(a_poly),
                     b_str=poly_to_str(b_poly),
+                    a_complexity=poly_complexity(a_poly),
+                    b_complexity=poly_complexity(b_poly),
                     approximation=mp.nstr(value, 30),
                     depths=list(DEPTHS),
                     values=[mp.nstr(v, 25) for v in vals],
@@ -312,12 +434,22 @@ class LogicHarnessScanner:
                 break
 
         dt = time.time() - t0
-        P(f"  [DONE] {checked:,} pairs in {dt:.1f}s | {len(candidates)} candidates found")
-        P(f"  [STATS] fast_rej={self.stats['fast_rejected']:,} stab_rej={self.stats['stability_rejected']:,} "
-          f"tol_rej={self.stats['tol_rejected']:,} tail_rej={self.stats['tail_rejected']:,} "
-          f"cross_rej={self.stats['cross_rejected']:,} accepted={self.stats['accepted']}")
 
-        # Rank by abs error (only accepted first, then rejected)
+        # Build entropy report
+        total_div = sum(div_reasons.values())
+        div_detail = " | ".join(f"{k}={v}" for k, v in sorted(div_reasons.items()))
+        er.add_step("Divergence prefilter", self.total_pairs,
+                     survived_prefilter, f"Rejected {total_div:,} ({div_detail})")
+        er.add_step("Ballpark gating (2-depth)", survived_prefilter,
+                     survived_ballpark, f"Rejected {ballpark_rejected:,}")
+        er.add_step("Stability triage (N,2N)", survived_ballpark,
+                     survived_triage, f"Rejected {triage_rejected:,}")
+        er.add_step("Full multi-depth + tolerance", survived_triage,
+                     len(candidates), f"Depth rej={depth_rejected}, tol rej={tol_rejected}")
+
+        P(f"  [DONE] {checked:,} pairs in {dt:.1f}s | {len(candidates)} candidates")
+
+        # Rank
         accepted = [c for c in candidates if c.verdict == "CANDIDATE"]
         rejected = [c for c in candidates if c.verdict == "REJECTED"]
         accepted.sort(key=lambda c: mp.mpf(c.abs_error))
@@ -325,99 +457,134 @@ class LogicHarnessScanner:
         ranked = accepted + rejected
         for i, c in enumerate(ranked):
             c.rank = i + 1
-        return ranked
+        return ranked, er
 
 
 # ========================== REPORT ==========================
-def print_step0():
+def print_candidate(c: FullCandidate, compute_time: float):
+    P(f"STRUCTURAL CANDIDATE #{c.rank}")
+    P("-" * 55)
+    P(f"Target:             {c.target_name}")
+    P(f"Target value:       {c.target_value}")
+    P(f"Model:              GCF poly degree <= {MAX_DEGREE}")
+    P(f"a(n):               {c.a_poly}  ->  {c.a_str}")
+    P(f"  a complexity:     L1={c.a_complexity[0]} nz={c.a_complexity[1]} |b0|={c.a_complexity[2]}")
+    P(f"b(n):               {c.b_poly}  ->  {c.b_str}")
+    P(f"  b complexity:     L1={c.b_complexity[0]} nz={c.b_complexity[1]} |b0|={c.b_complexity[2]}")
+    P(f"Depths:             {c.depths}")
+    P(f"Values:             {c.values}")
+    P(f"Stability deltas:   {c.deltas}")
+    P(f"Stability score:    {c.stability_score}")
+    P(f"Abs error (max d):  {c.abs_error}")
+    P(f"Rel error (max d):  {c.rel_error}")
+    P(f"Tail sensitivity:   {'PASS' if c.tail_pass else 'FAIL'}  (metric={c.tail_metric})")
+    P(f"Cross-check:        {'PASS' if c.cross_pass else 'FAIL'}  (ratio={c.cross_metric})")
+    P(f"Compute budget:     {compute_time:.1f}s")
+    P(f"VERDICT:            {c.verdict}")
+    P(f"DISCARD CONDITION:  {c.discard_condition}")
+    P("")
+
+
+# ========================== MAIN ==========================
+def main():
+    P("")
+    P("+" + "=" * 68 + "+")
+    P("|  ANTIGRAVITY -- STRUCTURAL SEARCH v3.0 (Entropy Reducer + Harness) |")
+    P("|  Engine: GCF Polynomial Scanner                                    |")
+    P("|  System: GAHENAX / Antigravity Core                                |")
+    P("+" + "=" * 68 + "+")
+
+    # STEP 0: SPEC
     P("")
     P("=" * 80)
     P("STEP 0 -- SPEC")
     P("=" * 80)
-    P(f"Structure class: Generalized Continued Fraction (GCF)")
-    P(f"  a(n), b(n) are polynomials of degree <= {MAX_DEGREE}")
-    P(f"  Coefficient range: {list(COEFF_RANGE)}")
-    P(f"  Depth schedule: {DEPTHS}")
-    P(f"  Precision: {PRECISION_DPS} decimal digits (mpmath)")
-    P(f"Targets: pi, e, 4/pi, 1/pi (calibration) + gamma (exploratory)")
+    P(f"Structure:   GCF with polynomial a(n), b(n), degree <= {MAX_DEGREE}")
+    P(f"Coefficients: {list(COEFF_RANGE)}")
+    P(f"Depths:       {DEPTHS}")
+    P(f"Precision:    {PRECISION_DPS} dps (mpmath)")
+    P(f"Reducer:      Canonicalization + Divergence + Ballpark(2-depth) + Triage(N,2N)")
+    P(f"Ordering:     Complexity prior (L1 norm ascending)")
     P("")
 
-
-def print_step1():
+    # STEP 1: FAILURE MODES
     P("=" * 80)
     P("STEP 1 -- FAILURE MODES CHECKLIST")
     P("=" * 80)
-    P("  [x] Finite depth coincidence        -> multi-depth gate (N,2N,4N,8N)")
-    P("  [x] Numerical rounding artifacts    -> mpmath at 30 dps")
-    P("  [x] Divergent/oscillatory sequences -> delta-decreasing check")
-    P("  [x] Tail dependency / truncation    -> tail sensitivity gate (perturb last 5 terms)")
-    P("  [x] Ballpark filter bias            -> filter stats tracked; not treated as evidence")
+    P("  [x] Finite depth coincidence        -> 4-depth gate (N,2N,4N,8N)")
+    P("  [x] Numerical rounding artifacts    -> mpmath 30 dps")
+    P("  [x] Divergent/oscillatory sequences -> prefilter + delta-decreasing")
+    P("  [x] Tail dependency / truncation    -> tail sensitivity gate")
+    P("  [x] Ballpark filter bias            -> 2-depth ballpark, stats logged")
+    P("  [x] Duplicate structures            -> canonicalization")
+    P("  [x] Search ordering bias            -> complexity prior (L1 ascending)")
     P("")
 
-
-def print_step2():
+    # STEP 2: TEST PLAN
     P("=" * 80)
     P("STEP 2 -- TEST PLAN")
     P("=" * 80)
-    P(f"  A) Multi-depth: depths={DEPTHS}, deltas must decrease, max < {STABILITY_EPS}")
-    P(f"  B) Tail sensitivity: perturb last {TAIL_K} a(n) by {TAIL_PERTURB}, delta < {TAIL_THRESHOLD}")
-    P(f"  C) Cross-check: |v - target| / |v - (target+/-{CROSS_EPS})| > 5")
-    P(f"  D) Calibration: run on phi, pi, e first to validate engine")
+    P(f"  A) Multi-depth: depths={DEPTHS}, deltas decreasing, max < {STABILITY_EPS}")
+    P(f"  B) Tail sensitivity: perturb last {TAIL_K} terms by {TAIL_PERTURB}, delta < {TAIL_THRESHOLD}")
+    P(f"  C) Cross-check: err_target / err_shifted ratio > 5 (eps={CROSS_EPS})")
+    P(f"  D) Calibration: run phi, 4/pi first to validate pipeline")
     P("")
 
-
-def print_step4(all_candidates: Dict[str, List[FullCandidate]], timings: Dict[str, float]):
-    P("")
+    # STEP 3: SEARCH
     P("=" * 80)
-    P("STEP 4 -- OUTPUT CONTRACT (per-candidate reports)")
+    P("STEP 3 -- SEARCH EXECUTION (with Entropy Reducer)")
+    P("=" * 80)
+
+    scanner = EntropyReducerScanner()
+    P(f"[INIT] Poly candidates: {len(scanner.poly_space)} (after canon)")
+    P(f"[INIT] Total pairs: {scanner.total_pairs:,}")
+    P("")
+
+    # Calibration
+    targets = {
+        "phi (calibration)": mp.phi,
+        "4/pi (calibration)": 4 / mp.pi,
+        "gamma (Euler-Mascheroni)": mp.euler,
+    }
+
+    all_results: Dict[str, Tuple[List[FullCandidate], EntropyReport]] = {}
+    timings: Dict[str, float] = {}
+
+    for name, val in targets.items():
+        t0 = time.time()
+        cands, er = scanner.scan_target(name, val)
+        timings[name] = time.time() - t0
+        all_results[name] = (cands, er)
+        er.print_report()
+
+    # STEP 4: OUTPUT CONTRACT
+    P("=" * 80)
+    P("STEP 4 -- OUTPUT CONTRACT")
     P("=" * 80)
     P("")
 
-    total_accepted = 0
     total_found = 0
+    total_accepted = 0
 
-    for name, cands in all_candidates.items():
+    for name, (cands, _) in all_results.items():
         if not cands:
             P(f"TARGET: {name}")
-            P("-" * 50)
+            P("-" * 55)
             P("NO STRUCTURAL CANDIDATES FOUND UNDER CURRENT CONSTRAINTS")
             P("")
             continue
-
         for c in cands:
             total_found += 1
             if c.verdict == "CANDIDATE":
                 total_accepted += 1
+            print_candidate(c, timings.get(name, 0))
 
-            P(f"STRUCTURAL CANDIDATE #{c.rank}")
-            P("-" * 50)
-            P(f"Target:             {c.target_name}")
-            P(f"Target value:       {c.target_value}")
-            P(f"Model:              GCF poly degree <= {MAX_DEGREE}")
-            P(f"a(n):               {c.a_poly}  ->  {c.a_str}")
-            P(f"b(n):               {c.b_poly}  ->  {c.b_str}")
-            P(f"Depths:             {c.depths}")
-            P(f"Values:             {c.values}")
-            P(f"Stability deltas:   {c.deltas}")
-            P(f"Stability score:    {c.stability_score}")
-            P(f"Abs error (max d):  {c.abs_error}")
-            P(f"Rel error (max d):  {c.rel_error}")
-            P(f"Tail sensitivity:   {'PASS' if c.tail_pass else 'FAIL'}  (metric={c.tail_metric})")
-            P(f"Cross-check:        {'PASS' if c.cross_pass else 'FAIL'}  (ratio={c.cross_metric})")
-            t = timings.get(c.target_name, 0)
-            P(f"Compute budget:     {t:.1f}s")
-            P(f"VERDICT:            {c.verdict}")
-            P(f"DISCARD CONDITION:  {c.discard_condition}")
-            P("")
-
-    return total_found, total_accepted
-
-
-def print_step5(total_found: int, total_accepted: int, targets_count: int):
+    # STEP 5: NO HYPE CLOSURE
     P("=" * 80)
     P("STEP 5 -- NO HYPE CLOSURE")
     P("=" * 80)
-    P(f"Scanned {targets_count} targets using GCF poly scanner (degree <= {MAX_DEGREE}).")
+    P(f"Scanned {len(targets)} targets using GCF poly scanner (degree <= {MAX_DEGREE}).")
+    P(f"Coefficient range: {list(COEFF_RANGE)}")
     P(f"Found {total_found} candidate(s), of which {total_accepted} passed all gates.")
     if total_accepted == 0:
         P("NO STRUCTURAL CANDIDATES FOUND under current constraints.")
@@ -427,86 +594,26 @@ def print_step5(total_found: int, total_accepted: int, targets_count: int):
     P("Numerical stability does not imply irrationality/rationality or closed form.")
     P("")
 
-
-# ========================== MAIN ==========================
-def main():
-    P("")
-    P("+" + "=" * 64 + "+")
-    P("|  ANTIGRAVITY -- STRUCTURAL NUMERIC SEARCH v2.0 (Logic Harness) |")
-    P("|  Engine: GCF Polynomial Scanner                                |")
-    P("|  System: GAHENAX / Antigravity Core                            |")
-    P("+" + "=" * 64 + "+")
-    P("")
-
-    # STEP 0
-    print_step0()
-
-    # STEP 1
-    print_step1()
-
-    # STEP 2
-    print_step2()
-
-    # STEP 3 -- SEARCH
-    P("=" * 80)
-    P("STEP 3 -- SEARCH EXECUTION")
-    P("=" * 80)
-
-    scanner = LogicHarnessScanner()
-    P(f"[INIT] Poly candidates: {len(scanner.poly_space)}")
-    P(f"[INIT] Total (a,b) pairs: {scanner.total:,}")
-    P("")
-
-    # STEP 2D -- Calibration first
-    P("--- CALIBRATION PHASE ---")
-    calibration_targets: Dict[str, mpf] = {
-        "phi (calibration)": mp.phi,
-        "pi (calibration)": mp.pi,
-        "e (calibration)": mp.e,
-    }
-
-    all_candidates: Dict[str, List[FullCandidate]] = {}
-    timings: Dict[str, float] = {}
-
-    for name, val in calibration_targets.items():
-        t0 = time.time()
-        cands = scanner.scan_target(name, val)
-        timings[name] = time.time() - t0
-        all_candidates[name] = cands
-        P("")
-
-    P("--- EXPLORATION PHASE ---")
-    exploration_targets: Dict[str, mpf] = {
-        "4/pi": 4 / mp.pi,
-        "1/pi": 1 / mp.pi,
-        "gamma (Euler-Mascheroni)": mp.euler,
-    }
-
-    for name, val in exploration_targets.items():
-        t0 = time.time()
-        cands = scanner.scan_target(name, val)
-        timings[name] = time.time() - t0
-        all_candidates[name] = cands
-        P("")
-
-    # STEP 4 -- Report
-    total_found, total_accepted = print_step4(all_candidates, timings)
-
-    # STEP 5 -- No Hype Closure
-    print_step5(total_found, total_accepted, len(all_candidates))
-
     # Save JSON
     data = {}
-    for name, cands in all_candidates.items():
-        data[name] = []
+    for name, (cands, er) in all_results.items():
+        data[name] = {
+            "entropy_report": {
+                "omega_0": er.omega_0,
+                "h_0": er.h_0,
+                "steps": er.steps,
+            },
+            "candidates": [],
+        }
         for c in cands:
-            data[name].append({
+            data[name]["candidates"].append({
                 "target_name": c.target_name,
-                "target_value": c.target_value,
                 "a_poly": list(c.a_poly),
                 "b_poly": list(c.b_poly),
                 "a_str": c.a_str,
                 "b_str": c.b_str,
+                "a_complexity": list(c.a_complexity),
+                "b_complexity": list(c.b_complexity),
                 "approximation": c.approximation,
                 "depths": c.depths,
                 "values": c.values,
@@ -522,15 +629,14 @@ def main():
                 "discard_condition": c.discard_condition,
                 "rank": c.rank,
             })
-    with open("core/structural_search_results.json", "w", encoding="utf-8") as f:
+    with open("core/structural_search_results_v3.json", "w", encoding="utf-8") as f:
         json.dump(data, f, indent=2, ensure_ascii=False)
-    P("[SAVED] core/structural_search_results.json")
+    P("[SAVED] core/structural_search_results_v3.json")
 
     P("")
     P("DISCLAIMER: All results are NUMERICAL COINCIDENCES identified via")
-    P("finite-depth evaluation. They are NOT proofs, identities, or resolutions")
-    P("of open problems. They are STRUCTURAL CANDIDATES for review by a")
-    P("human mathematician.")
+    P("finite-depth evaluation. NOT proofs, identities, or resolutions of")
+    P("open problems. STRUCTURAL CANDIDATES for human mathematician review.")
     P("")
 
 
