@@ -1,0 +1,36 @@
+{
+  "run_time": "2026-02-13T06:19:15",
+  "config": {
+    "mp_dps": 50,
+    "count": 200,
+    "windows": [
+      1000,
+      2000,
+      3000,
+      4000
+    ],
+    "c7_Ls": [
+      1,
+      2,
+      4,
+      8
+    ],
+    "c7_step": 0.25,
+    "thresholds": {
+      "unfold_tol": 0.05,
+      "ks_gue_max": 0.1,
+      "ks_pois_min": 0.2,
+      "beta_target": 2.0,
+      "beta_tol": 0.6,
+      "c6_l2_max": 0.15,
+      "c7_sigma2_l2_max": 0.35,
+      "c7_delta3_l2_max": 0.35
+    },
+    "seed": 1337
+  },
+  "verdict": "FAILED",
+  "outputs": {
+    "core/riemann_constrictor_c7.csv": "b936ae9d5659b0d402e4a4c5e8501f21dc0ad9850d040b0c403fdb9b70a1ad60",
+    "core/riemann_constrictor_c7.json": "6d365aa4b64ba5c1afb61e234d88e69ee3ea13c25d42fe8992a6e3061e366e53"
+  }
+}

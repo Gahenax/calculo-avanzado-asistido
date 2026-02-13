@@ -1,0 +1,5 @@
+n_start,count,t_min,t_max,mine_time_s,c1_beta,c1_r2,c1_pass,c2_ks_gue,c2_pval_gue,c2_pass,c3_ks_pois,c3_pval_pois,c3_pass,c5_mean_spacing,c5_std_spacing,c5_pass,c6_l2,c6_pass,c7_sigma2_l2,c7_delta3_l2,c7_sigma2_pass,c7_delta3_pass,all_pass
+1000,200,1419.4225,1646.6249,182.0,1.1461,0.2805,False,0.06497,0.355053,True,0.34066,0.0,True,0.998718,0.382701,True,0.940608,False,0.371737,0.231439,False,True,False
+2000,200,2515.2865,2723.0861,254.5,1.2578,0.4604,False,0.039911,0.8964,True,0.316213,0.0,True,1.002554,0.385656,True,0.940025,False,0.355708,0.231277,False,True,False
+3000,200,3533.3282,3730.1873,261.4,0.9097,0.3333,False,0.043883,0.821694,True,0.303862,0.0,True,1.001252,0.396681,True,0.936294,False,0.349145,0.231073,True,True,False
+4000,200,4506.3115,4696.0958,378.9,1.051,0.5017,False,0.050015,0.682849,True,0.329911,0.0,True,1.00119,0.395774,True,0.938459,False,0.340377,0.231075,True,True,False
