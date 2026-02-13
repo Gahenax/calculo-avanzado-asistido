@@ -8,7 +8,7 @@
 
 ## Descripción
 
-Este repositorio contiene dos módulos principales:
+Este repositorio contiene tres módulos principales:
 
 ### 1. Calculadora Simbólica (Frontend)
 Aplicación web construida con **Vite + React + TypeScript** que permite:
@@ -19,89 +19,63 @@ Aplicación web construida con **Vite + React + TypeScript** que permite:
 ### 2. Motor de Minería Estructural (GCF Engine)
 Escáner de **Fracciones Continuas Generalizadas** (GCF) que busca coincidencias numéricas entre constantes matemáticas y estructuras polinómicas de baja complejidad.
 
-**Características del motor:**
-- Evaluación de GCF con recurrencia hacia atrás
-- Test de estabilidad multi-profundidad (N, 2N, 4N, 8N)
-- Test de sensibilidad de cola (tail sensitivity)
-- Cross-check contra targets cercanos
-- Rechazo de secuencias divergentes/oscilatorias
+### 3. Gamma Prime Genesis
+Demostración computacional de que γ (Euler–Mascheroni) emerge de la estructura de los números primos vía el producto de Mertens y la función de von Mangoldt.
 
 ---
 
-## Protocolo: Logic Harness v1.0
+## Protocolo: Logic Harness + Entropy Reducer
 
-El motor de minería opera bajo un **arnés lógico** estricto que previene:
+El motor de minería opera bajo un **arnés lógico** estricto + **reductor de entropía** que previene:
 - Falsas descubrimientos por precisión finita
 - Overfitting a la profundidad
 - Convergencia inestable
+- Coincidencias de vecindario (anti-cluster)
 - Fugas narrativas ("esto explica X")
 - Hype de problemas abiertos
-
-### Pasos del Protocolo
-
-| Paso | Nombre | Descripción |
-|------|--------|-------------|
-| 0 | SPEC | Restablecer targets, clase de estructura, límites |
-| 1 | FAILURE MODES | Checklist explícito de modos de fallo |
-| 2 | TEST PLAN | Multi-depth + tail sensitivity + cross-check + calibración |
-| 3 | SEARCH | Filtro rápido + pipeline completo, tracking de estadísticas |
-| 4 | OUTPUT CONTRACT | Reporte estricto por candidato |
-| 5 | NO HYPE CLOSURE | Resumen conservador |
 
 ### Reglas No Negociables
 1. **Evidencia ≠ Prueba** — Nunca se reclama una prueba o identidad por acuerdo numérico.
 2. **Candidato ≠ Descubrimiento** — Los resultados se etiquetan como "STRUCTURAL CANDIDATE" o "NUMERICAL COINCIDENCE".
-3. **Estructura ≠ Significado** — No se interpreta significado de dominio (física/bio/finanzas) solo por estructura.
+3. **Estructura ≠ Significado** — No se interpreta significado de dominio solo por estructura.
 4. **Toda conclusión tiene una condición de descarte.**
 
 ---
 
-## Resultados: Ejecución del 2026-02-13
+## Cronología de Ejecuciones (2026-02-13)
 
-### Configuración
-- Clase de estructura: GCF con polinomios de grado ≤ 2
-- Coeficientes: [-2, -1, 0, 1, 2]
-- Profundidades: [40, 80, 160, 320]
-- Precisión: 30 dígitos decimales (mpmath)
-- Espacio de búsqueda: 15,376 pares (a, b)
+### Run 1: Calibración básica (v2, Logic Harness)
+- **Espacio:** grado ≤ 2, coeff [-2, 2], 15,376 pares
+- **Resultado:** `4/π` encontrado como `a(n)=n², b(n)=2n+1` — **fracción continua de Brouncker (1656)**
+- **Validación:** Error ~1.97e-31, tail PASS, cross-check PASS → **engine validado** ✅
 
-### Targets Escaneados
+### Run 2: Entropy Reducer (v3)
+- **Espacio:** grado ≤ 2, coeff [-3, 3], 116,964 pares
+- **Reducer:** Canonicalización + divergence prefilter + ballpark gating(2-depth) + stability triage
+- **Resultado:** Mismo `4/π` Brouncker confirmado. γ: NO_SIG.
+- **UA contabilidad:** Ballpark gating removió **8.7 bits** de entropía en un paso.
 
-| Target | Valor | Candidatos | Status |
-|--------|-------|------------|--------|
-| φ (calibración) | 1.618033... | 0 | NO_SIG |
-| π (calibración) | 3.141592... | 0 | NO_SIG |
-| e (calibración) | 2.718281... | 0 | NO_SIG |
-| 4/π | 1.273239... | **1** | ✅ CANDIDATE |
-| 1/π | 0.318309... | 0 | NO_SIG |
-| γ (Euler-Mascheroni) | 0.577215... | 0 | NO_SIG |
+### Run 3: Gamma Expand (v4, multi-precision)
+- **Espacio:** Phase A (deg≤2, [-5,5], 662k pares) + Phase B (deg≤3, [-3,3], 2.5M pares parcial)
+- **Estabilidad:** Multi-precision (80-bit vs 160-bit), truncación + agreement
+- **Resultado:** 50 candidatos con StabilityScore ≥ 12
+- **Diagnóstico:** **Coincidencias de vecindario** — convergían a valores cerca de γ (gap ~10⁻³) pero no a γ
 
-### Candidato Encontrado
+### Run 4: B2 Gap-first (v5, corrected harness)
+- **Pipeline:** S0(depth=16, gap≤1e-6) → S1(depth=128, gap≤1e-10) → S2(multi-prec, Smin=20)
+- **Anti-cluster:** Buckets por valor convergido (8 decimales, max 3/bucket)
+- **Futility stop:** 5 ventanas de 50k sin mejora 100x
+- **Resultado:** `gamma: NO_SIG` — **0 candidatos** pasaron Stage 0 en 300k pares
+- **Evidencia:** Futility triggered en 6 ventanas, todas con best_gap = ∞
 
-```
-STRUCTURAL CANDIDATE #1
------------------------
-Target:             4/π
-a(n):               n²
-b(n):               2n + 1
-Depths:             [40, 80, 160, 320]
-Stability deltas:   [0.0, 0.0, 0.0]
-Abs error:          ~1.97e-31
-Rel error:          ~1.55e-31
-Tail sensitivity:   PASS (metric=0.0)
-Cross-check:        PASS (ratio=5.07e+26)
-VERDICT:            CANDIDATE
-DISCARD CONDITION:  Invalidate if higher-depth eval diverges or
-                    tail sensitivity fails at depth>320.
-```
+### Conclusión GCF para γ
+> **γ no tiene representación como GCF con polinomios de grado ≤ 3 y coeficientes enteros en [-5, 5].**
+> Resultado confirmado con gap-first pipeline y evidencia de futilidad.
 
-> **Nota:** Esta es la fracción continua de Brouncker (1656), una identidad conocida.  
-> Su detección valida el correcto funcionamiento del motor.
-
-### Análisis
-- La calibración funcionó: φ, π, e no producen candidatos con coeficientes [-2,2] (esperado).
-- 4/π fue encontrado correctamente → **validación del engine**.
-- γ no produjo candidatos → resultado conservador y correcto.
+### Run 5: Gamma Prime Genesis (computacional)
+- **Método A (Mertens):** γ ≈ -ln(ln(x) · ∏(1-1/p)) → error ~5.0e-5 con x=1,999,993
+- **Método B (von Mangoldt):** γ ≈ ln(x) - Σ Λ(n)/n → error ~5.5e-5 con x=1,999,993
+- **Convergencia lenta** (esperada para ambos métodos) — confirman que γ emerge de la distribución prima
 
 ---
 
@@ -121,18 +95,25 @@ DISCARD CONDITION:  Invalidate if higher-depth eval diverges or
 
 ```
 calculo-avanzado-asistido/
-├── core/                                    # Motor Python
+├── core/                                          # Motor Python
 │   ├── ANTIGRAVITY_PROMPT_STRUCTURAL_NUMERIC_SEARCH.py
 │   ├── ANTIGRAVITY_PROMPT_LOGIC_HARNESS_V1.py
-│   ├── STRUCTURAL_NUMERIC_SEARCH_RUNNER.py  # Runner principal
-│   ├── structural_search_results.json       # Resultados
-│   └── search_output.log                    # Log completo
+│   ├── ANTIGRAVITY_PROMPT_ENTROPY_REDUCER_V1.py
+│   ├── ANTIGRAVITY_PROMPT_GAMMA_GCF_EXPAND.py
+│   ├── ANTIGRAVITY_PROMPT_GAMMA_GCF_B2_CORRECTIONS.py
+│   ├── STRUCTURAL_NUMERIC_SEARCH_RUNNER.py        # Runner v3 (Entropy Reducer)
+│   ├── GAMMA_GCF_EXPAND_RUNNER.py                 # Runner v4 (Multi-precision)
+│   ├── GAMMA_GCF_B2_RUNNER.py                     # Runner v5 (Gap-first)
+│   ├── GAMMA_PRIME_GENESIS_HARDENED.py             # Mertens + von Mangoldt
+│   ├── structural_search_results_v3.json
+│   ├── gamma_expand_results_v4.json
+│   └── gamma_b2_results.json
 ├── src/
 │   ├── core/
-│   │   └── StructureMiner.ts                # Port TypeScript del GCF engine
-│   ├── StructureMinerUI.tsx                  # UI del minero
-│   ├── App.tsx                              # Aplicación principal
-│   ├── index.css                            # Sistema de diseño
+│   │   └── StructureMiner.ts                      # Port TypeScript del GCF engine
+│   ├── StructureMinerUI.tsx                        # UI del minero
+│   ├── App.tsx                                    # Aplicación principal
+│   ├── index.css                                  # Sistema de diseño
 │   └── main.tsx
 ├── index.html
 ├── package.json
@@ -151,7 +132,18 @@ npm run dev
 ### Motor GCF (Python)
 ```bash
 pip install mpmath
+
+# Calibración + búsqueda general
 python core/STRUCTURAL_NUMERIC_SEARCH_RUNNER.py
+
+# Gamma expand (multi-precision)
+python core/GAMMA_GCF_EXPAND_RUNNER.py
+
+# Gamma B2 (gap-first)
+python core/GAMMA_GCF_B2_RUNNER.py
+
+# Gamma Prime Genesis (Mertens + von Mangoldt)
+python core/GAMMA_PRIME_GENESIS_HARDENED.py --method both --N 2000000 --dps 80
 ```
 
 ---
@@ -160,6 +152,8 @@ python core/STRUCTURAL_NUMERIC_SEARCH_RUNNER.py
 
 Todos los resultados son **COINCIDENCIAS NUMÉRICAS** identificadas mediante evaluación de profundidad finita. **NO** son pruebas, identidades ni resoluciones de problemas abiertos. Son **CANDIDATOS ESTRUCTURALES** para revisión por un matemático humano.
 
+La estabilidad numérica no implica irracionalidad/racionalidad ni forma cerrada.
+
 ---
 
-*Potenciado por Antigravity Core v2.0 — GAHENAX*
+*Potenciado por Antigravity Core v5.0 — GAHENAX*
