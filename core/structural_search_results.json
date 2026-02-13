@@ -1,0 +1,53 @@
+{
+  "phi (calibration)": [],
+  "pi (calibration)": [],
+  "e (calibration)": [],
+  "4/pi": [
+    {
+      "target_name": "4/pi",
+      "target_value": "1.27323954473516268615107010698",
+      "a_poly": [
+        1,
+        0,
+        0
+      ],
+      "b_poly": [
+        0,
+        2,
+        1
+      ],
+      "a_str": "n^2",
+      "b_str": "2*n + 1",
+      "approximation": "1.27323954473516268615107010698",
+      "depths": [
+        40,
+        80,
+        160,
+        320
+      ],
+      "values": [
+        "1.27323954473516268615107",
+        "1.27323954473516268615107",
+        "1.27323954473516268615107",
+        "1.27323954473516268615107"
+      ],
+      "deltas": [
+        "0.0",
+        "0.0",
+        "0.0"
+      ],
+      "stability_score": "0.0",
+      "abs_error": "1.97215226305253e-31",
+      "rel_error": "1.54892476534158e-31",
+      "tail_pass": true,
+      "tail_metric": "0.0",
+      "cross_pass": true,
+      "cross_metric": "5.0706024e+26",
+      "verdict": "CANDIDATE",
+      "discard_condition": "Invalidate if higher-depth eval diverges or tail sensitivity fails at depth>320.",
+      "rank": 1
+    }
+  ],
+  "1/pi": [],
+  "gamma (Euler-Mascheroni)": []
+}
