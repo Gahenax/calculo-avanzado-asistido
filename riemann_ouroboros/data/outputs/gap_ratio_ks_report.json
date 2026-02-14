@@ -1,0 +1,36 @@
+{
+  "config": {
+    "n_test_blocks": 50,
+    "n_ref_blocks": 100,
+    "block_length": 4000,
+    "vote_threshold": 0.8,
+    "base_seed": 42
+  },
+  "reference": {
+    "gue_n_ratios": 399900,
+    "gue_r_mean": 0.601014,
+    "poi_n_ratios": 399900,
+    "poi_r_mean": 0.386609
+  },
+  "accuracy": {
+    "gue_correct": 50,
+    "gue_total": 50,
+    "gue_pct": 100.0,
+    "poi_correct": 50,
+    "poi_total": 50,
+    "poi_pct": 100.0,
+    "total_pct": 100.0
+  },
+  "stats": {
+    "gue_r_mean": 0.599886,
+    "gue_r_std": 0.004146,
+    "poi_r_mean": 0.387043,
+    "poi_r_std": 0.005378,
+    "gue_ks_margin_mean": 0.33908,
+    "poi_ks_margin_mean": -0.338062,
+    "gue_entropy_mean": 3.769995,
+    "poi_entropy_mean": 3.827545
+  },
+  "verdict": "DISCRIMINATOR_VALIDATED",
+  "time_s": 70.2
+}
