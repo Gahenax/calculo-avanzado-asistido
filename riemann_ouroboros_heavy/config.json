@@ -1,0 +1,90 @@
+{
+    "max_iterations": 4,
+    "zeta": {
+        "enable": true,
+        "dps": 50,
+        "blocks_per_iter": 50,
+        "block_spacings": 200,
+        "windows": [
+            {
+                "n_start": 1000,
+                "n_end": 11050
+            },
+            {
+                "n_start": 12000,
+                "n_end": 22050
+            },
+            {
+                "n_start": 23000,
+                "n_end": 33050
+            },
+            {
+                "n_start": 34000,
+                "n_end": 44050
+            }
+        ],
+        "disjoint_blocks": true
+    },
+    "controls": {
+        "gue_blocks_per_iter": 50,
+        "poisson_blocks_per_iter": 50,
+        "block_spacings": 200,
+        "gue": {
+            "mat_n": 180,
+            "bulk_lo": 0.2,
+            "bulk_hi": 0.8,
+            "realizations_per_iter": 12
+        }
+    },
+    "entropy_reducer": {
+        "enable": true,
+        "intensities": [
+            {
+                "name": "soft",
+                "median_k": 5,
+                "ema_alpha": 0.04,
+                "winsor_w": 21,
+                "p_lo": 2.5,
+                "p_hi": 97.5,
+                "ks_max": 0.18
+            },
+            {
+                "name": "mid",
+                "median_k": 7,
+                "ema_alpha": 0.06,
+                "winsor_w": 25,
+                "p_lo": 2.5,
+                "p_hi": 97.5,
+                "ks_max": 0.16
+            },
+            {
+                "name": "strong",
+                "median_k": 9,
+                "ema_alpha": 0.08,
+                "winsor_w": 31,
+                "p_lo": 3.0,
+                "p_hi": 97.0,
+                "ks_max": 0.14
+            }
+        ]
+    },
+    "audit": {
+        "report_json": "outputs/audit_report.json",
+        "outliers_csv": "outputs/outliers.csv",
+        "topk_outliers": 40
+    },
+    "io": {
+        "merged_csv": "outputs/merged_blocks_metrics.csv",
+        "flush_every_blocks": 10
+    },
+    "parallel": {
+        "cores": -1
+    },
+    "flow_optional": {
+        "enable": false,
+        "only_on_outliers": true,
+        "flow_points": 1500,
+        "flow_steps": 120,
+        "float32": true
+    }
+}

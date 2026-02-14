@@ -1,0 +1,15 @@
+[00:57:14] ========================================================================
+[00:57:14] OUROBOROS HEAVY — Riemann Zeta GUE/Poisson Discriminator
+[00:57:14] Config: config.json
+[00:57:14] Max iterations: 4
+[00:57:14] Zeta: {'enable': True, 'dps': 50, 'blocks_per_iter': 50, 'block_spacings': 200, 'windows': [{'n_start': 1000, 'n_end': 11050}, {'n_start': 12000, 'n_end': 22050}, {'n_start': 23000, 'n_end': 33050}, {'n_start': 34000, 'n_end': 44050}], 'disjoint_blocks': True}
+[00:57:14] Controls: gue=50, poi=50
+[00:57:14] ========================================================================
+[00:57:14] [REF] Building reference gap-ratio distributions...
+[00:57:15]   GUE ref: 9950 ratios (mean=0.5988)
+[00:57:15]   POI ref: 9950 ratios (mean=0.3897)
+[00:57:15] 
+============================================================
+[00:57:15] ITERATION 1/4 (seed=42)
+[00:57:15] ============================================================
+[00:57:15] [ZETA] Farming zeros n=[1000, 11050)...
