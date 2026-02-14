@@ -1,0 +1,34 @@
+{
+  "source": "https://www.dtc.umn.edu/~odlyzko/zeta_tables/zeros1",
+  "table": "zeros1",
+  "description": "First 100,000 zeros, accurate to 3e-9",
+  "n_zeros": 100000,
+  "n_spacings": 99999,
+  "t_range": [
+    14.134725142,
+    74920.827498994
+  ],
+  "spacings_mean": 1.0,
+  "spacings_std": 0.400931,
+  "density_ratio": 1.0,
+  "max_gap": 6.887314496999998,
+  "sha256_zeros": "a11cf3fe517e3a2d0aae1f82f100efe7a51081b0f35ac2f57024a51ffda76875",
+  "time_s": 1.0,
+  "validation": {
+    "n_zeros": 100000,
+    "valid": true,
+    "issues": [],
+    "min_gap": 0.014701476000482216,
+    "max_gap": 6.887314496999998,
+    "mean_gap": 0.7490744184827048,
+    "t_min": 14.134725142,
+    "t_max": 74920.827498994,
+    "density_ratio": 1.0,
+    "expected_count_in_range": 99999.0
+  },
+  "files": {
+    "zeros_npy": "data\\zeros_odlyzko_zeros1.npy",
+    "spacings_npy": "data\\spacings_odlyzko_zeros1.npy",
+    "raw_txt": "data\\zeros1_raw.txt"
+  }
+}
