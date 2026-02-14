@@ -1,0 +1,169 @@
+{
+  "config": {
+    "block_size": 100,
+    "block_mode": "overlap50",
+    "n_blocks": 11,
+    "vote_threshold": 0.8,
+    "bootstrap": {
+      "n_boot": 2000,
+      "alpha": 0.05
+    },
+    "taus": {
+      "min": 0.01,
+      "max": 2.0,
+      "M": 80
+    }
+  },
+  "verdict": "CONFIRMED_GUE_UNIVERSALITY",
+  "gue_vote_rate": 0.9090909090909091,
+  "stats": {
+    "gap_ratio": {
+      "mean": 0.6215479999563213,
+      "CI95": [
+        0.6144958581232428,
+        0.6282720614038286
+      ],
+      "targets": {
+        "GUE": 0.6,
+        "Poisson": 0.386
+      }
+    },
+    "beta_mle": {
+      "mean": 2.593248811868415,
+      "CI95": [
+        2.4742933879921867,
+        2.718136081358195
+      ],
+      "targets": {
+        "GUE": 2.0,
+        "Poisson": 0.0
+      }
+    },
+    "dist_gue": {
+      "mean": 0.849126629206404,
+      "CI95": [
+        0.8020080644306061,
+        0.8983615268233407
+      ]
+    },
+    "dist_poi": {
+      "mean": 0.97798791859216,
+      "CI95": [
+        0.9283640464448406,
+        1.0326156536874498
+      ]
+    }
+  },
+  "per_block": [
+    {
+      "gap_ratio": 0.6199012974704188,
+      "beta_mle": 2.791783424388719,
+      "d_gue": 0.7403452632670904,
+      "d_poi": 0.9717269376488639,
+      "vote": "GUE_CLOSER",
+      "block_idx": 0
+    },
+    {
+      "gap_ratio": 0.6313692789666954,
+      "beta_mle": 2.94460360009364,
+      "d_gue": 0.8872100886191372,
+      "d_poi": 0.9425871166650381,
+      "vote": "GUE_CLOSER",
+      "block_idx": 1
+    },
+    {
+      "gap_ratio": 0.6163492562643086,
+      "beta_mle": 2.5954321838565253,
+      "d_gue": 0.9588966540776926,
+      "d_poi": 1.1335558408944535,
+      "vote": "GUE_CLOSER",
+      "block_idx": 2
+    },
+    {
+      "gap_ratio": 0.6148552251625622,
+      "beta_mle": 2.592591454169444,
+      "d_gue": 0.8325049257227021,
+      "d_poi": 0.9214026671286373,
+      "vote": "GUE_CLOSER",
+      "block_idx": 3
+    },
+    {
+      "gap_ratio": 0.6261476115258968,
+      "beta_mle": 2.5825668861116924,
+      "d_gue": 0.9863222130371804,
+      "d_poi": 0.9801369153900992,
+      "vote": "POISSON_CLOSER",
+      "block_idx": 4
+    },
+    {
+      "gap_ratio": 0.6175901120788028,
+      "beta_mle": 2.4812664335322148,
+      "d_gue": 0.8172756700214735,
+      "d_poi": 0.8862961196593641,
+      "vote": "GUE_CLOSER",
+      "block_idx": 5
+    },
+    {
+      "gap_ratio": 0.6209835653649209,
+      "beta_mle": 2.5571808158973828,
+      "d_gue": 0.863641128574391,
+      "d_poi": 0.998139198578438,
+      "vote": "GUE_CLOSER",
+      "block_idx": 6
+    },
+    {
+      "gap_ratio": 0.6122367625186961,
+      "beta_mle": 2.455718526073591,
+      "d_gue": 0.9455979332518847,
+      "d_poi": 1.153280770125887,
+      "vote": "GUE_CLOSER",
+      "block_idx": 7
+    },
+    {
+      "gap_ratio": 0.5988041539178114,
+      "beta_mle": 2.1848159090673422,
+      "d_gue": 0.7877879647267847,
+      "d_poi": 0.9682111305061828,
+      "vote": "GUE_CLOSER",
+      "block_idx": 8
+    },
+    {
+      "gap_ratio": 0.6406661751146351,
+      "beta_mle": 2.4531686129884274,
+      "d_gue": 0.7422975767875765,
+      "d_poi": 0.8469688279365959,
+      "vote": "GUE_CLOSER",
+      "block_idx": 9
+    },
+    {
+      "gap_ratio": 0.6381245611347859,
+      "beta_mle": 2.886609084373587,
+      "d_gue": 0.7785135031845324,
+      "d_poi": 0.9555615799802029,
+      "vote": "GUE_CLOSER",
+      "block_idx": 10
+    }
+  ],
+  "meta": {
+    "n_start": 1000,
+    "total_zeros": 600,
+    "block_size": 100,
+    "block_mode": "overlap50",
+    "mp_dps": 50,
+    "control": {
+      "seeds": [
+        41,
+        42,
+        43,
+        44,
+        45,
+        46,
+        47,
+        48
+      ],
+      "gue_trim": 0.1
+    },
+    "targets": "GUE: gap_ratio~0.60, beta~2.0, SFF closer to GUE than Poisson.",
+    "decision_rule": "CONFIRMED_GUE_UNIVERSALITY if vote_rate>=threshold and CIs support."
+  }
+}
