@@ -256,17 +256,17 @@ def solve_challenge_with_lll(
 
 
 # ============================================================================
-# F) BLACKBOX SOLVER — Bridge to OPTIMA_CORE_SINGLEFILE
+# F) BLACKBOX SOLVER — Bridge to GAHENAX_UA_ENGINE
 # ============================================================================
 
 try:
-    from OPTIMA_CORE_SINGLEFILE import black_box_solver  # noqa: F401
+    from GAHENAX_UA_ENGINE import black_box_solver  # noqa: F401
 except ImportError:
     import importlib.util as _ilu
     import os as _os
     _spec = _ilu.spec_from_file_location(
-        "OPTIMA_CORE_SINGLEFILE",
-        _os.path.join(_os.path.dirname(__file__), "OPTIMA_CORE_SINGLEFILE.py"),
+        "GAHENAX_UA_ENGINE",
+        _os.path.join(_os.path.dirname(__file__), "GAHENAX_UA_ENGINE.py"),
     )
     _mod = _ilu.module_from_spec(_spec)
     _spec.loader.exec_module(_mod)
