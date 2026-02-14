@@ -256,81 +256,22 @@ def solve_challenge_with_lll(
 
 
 # ============================================================================
-# F) BLACKBOX SOLVER — GAHENAX Global Policy Solver
+# F) BLACKBOX SOLVER — Bridge to OPTIMA_CORE_SINGLEFILE
 # ============================================================================
 
-def black_box_solver(basis: np.ndarray, **kwargs) -> np.ndarray:
-    """
-    GAHENAX Global Policy Solver (Devoured Core)
+try:
+    from OPTIMA_CORE_SINGLEFILE import black_box_solver  # noqa: F401
+except ImportError:
+    import importlib.util as _ilu
+    import os as _os
+    _spec = _ilu.spec_from_file_location(
+        "OPTIMA_CORE_SINGLEFILE",
+        _os.path.join(_os.path.dirname(__file__), "OPTIMA_CORE_SINGLEFILE.py"),
+    )
+    _mod = _ilu.module_from_spec(_spec)
+    _spec.loader.exec_module(_mod)
+    black_box_solver = _mod.black_box_solver
 
-    Hybrid strategy:
-    - Sequential size reduction (like LLL, prevents mu overflow)
-    - GLOBAL swap selection (picks worst Lovasz violation, not sequential k++)
-    - Full GS recompute per perception pass
-    - Terminates at stable state or action budget
-
-    Input:  basis (int64 ndarray, rows = lattice vectors)
-    Output: coeffs (int64 1D array, length n)
-    """
-    delta = kwargs.get("delta", 0.99)
-    max_actions_factor = kwargs.get("max_iter_factor", DEFAULT_MAX_ITER_FACTOR)
-
-    B = basis.astype(np.int64).copy()
-    n = B.shape[0]
-    U = np.eye(n, dtype=np.int64)
-
-    max_actions = n * n * max_actions_factor
-    actions = 0
-
-    while actions < max_actions:
-        # === PERCEPTION: full Gram-Schmidt ===
-        mu, _Bstar, Bstar_norms_sq = gram_schmidt(B)
-
-        # === 1) SEQUENTIAL SIZE REDUCTION (all rows) ===
-        did_reduce = False
-        for i in range(1, n):
-            for j in range(i - 1, -1, -1):
-                if abs(mu[i, j]) > 0.5:
-                    q = int(round(mu[i, j]))
-                    if q != 0:
-                        B[i] -= q * B[j]
-                        U[i] -= q * U[j]
-                        for ll in range(j):
-                            mu[i, ll] -= q * mu[j, ll]
-                        mu[i, j] -= q
-                        actions += 1
-                        did_reduce = True
-
-        # === 2) GLOBAL LOVASZ SWAP (pick worst violation) ===
-        # Recompute GS after size reduction for accurate Lovász check
-        if did_reduce:
-            mu, _Bstar, Bstar_norms_sq = gram_schmidt(B)
-
-        best_violation = 0.0
-        swap_k = -1
-
-        for k in range(1, n):
-            lhs = Bstar_norms_sq[k] + mu[k, k - 1] ** 2 * Bstar_norms_sq[k - 1]
-            rhs = delta * Bstar_norms_sq[k - 1]
-            if lhs < rhs:
-                violation = rhs - lhs
-                if violation > best_violation:
-                    best_violation = violation
-                    swap_k = k
-
-        if swap_k != -1:
-            B[[swap_k, swap_k - 1]] = B[[swap_k - 1, swap_k]]
-            U[[swap_k, swap_k - 1]] = U[[swap_k - 1, swap_k]]
-            actions += 1
-            continue
-
-        # === STABLE STATE ===
-        break
-
-    # === EXTRACTION ===
-    norms = np.linalg.norm(B.astype(np.float64), axis=1)
-    best_idx = int(np.argmin(norms))
-    return U[best_idx].astype(np.int64)
 
 
 # ============================================================================
@@ -379,7 +320,8 @@ def run_single_battle(
         basis_copy = challenge.basis.copy()
         t0 = time.time()
         coeffs_bb = black_box_solver(basis_copy, delta=delta,
-                                     max_iter_factor=max_iter_factor)
+                                     max_iter_factor=max_iter_factor,
+                                     max_actions_factor=max_iter_factor)
         t_bb = time.time() - t0
 
         if not np.array_equal(basis_copy, challenge.basis):
