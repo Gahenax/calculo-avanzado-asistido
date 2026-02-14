@@ -1,0 +1,36 @@
+{
+  "source": "https://www.dtc.umn.edu/~odlyzko/zeta_tables/zeros4",
+  "table": "zeros4",
+  "description": "Zeros 10^21+1 through 10^21+10^4",
+  "n_zeros": 10000,
+  "n_spacings": 9999,
+  "t_range": [
+    538.49806962,
+    1947.74231109
+  ],
+  "spacings_mean": 1.0,
+  "spacings_std": 0.430482,
+  "density_ratio": 8.527659,
+  "max_gap": 0.4040302599998995,
+  "sha256_zeros": "f7ac0382e67073ba9a0fa703a34f8ee73933b5e1cc64f6e3b3e0cecdc0d9d3e4",
+  "time_s": 0.7,
+  "validation": {
+    "n_zeros": 10000,
+    "valid": true,
+    "issues": [
+      "Density anomaly: observed/expected = 8.528"
+    ],
+    "min_gap": 0.00530012000001534,
+    "max_gap": 0.4040302599998995,
+    "mean_gap": 0.14093851799879986,
+    "t_min": 538.49806962,
+    "t_max": 1947.74231109,
+    "density_ratio": 8.527659,
+    "expected_count_in_range": 1172.5
+  },
+  "files": {
+    "zeros_npy": "data\\zeros_odlyzko_zeros4.npy",
+    "spacings_npy": "data\\spacings_odlyzko_zeros4.npy",
+    "raw_txt": "data\\zeros4_raw.txt"
+  }
+}

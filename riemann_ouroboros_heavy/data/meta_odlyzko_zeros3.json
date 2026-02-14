@@ -1,0 +1,36 @@
+{
+  "source": "https://www.dtc.umn.edu/~odlyzko/zeta_tables/zeros3",
+  "table": "zeros3",
+  "description": "Zeros 10^12+1 through 10^12+10^4",
+  "n_zeros": 10000,
+  "n_spacings": 9999,
+  "t_range": [
+    1.8475231278,
+    2569.0462708995
+  ],
+  "spacings_mean": 1.0,
+  "spacings_std": 0.471431,
+  "density_ratio": 4.876323,
+  "max_gap": 0.7703447475000758,
+  "sha256_zeros": "ac23a2070c479aeeea16d8b01cbce97798784a40e648b9aa9d35f50709de5771",
+  "time_s": 0.0,
+  "validation": {
+    "n_zeros": 10000,
+    "valid": true,
+    "issues": [
+      "Density anomaly: observed/expected = 4.876"
+    ],
+    "min_gap": 0.005556968299970322,
+    "max_gap": 0.7703447475000758,
+    "mean_gap": 0.25674554933210325,
+    "t_min": 1.8475231278,
+    "t_max": 2569.0462708995,
+    "density_ratio": 4.876323,
+    "expected_count_in_range": 2050.5
+  },
+  "files": {
+    "zeros_npy": "data\\zeros_odlyzko_zeros3.npy",
+    "spacings_npy": "data\\spacings_odlyzko_zeros3.npy",
+    "raw_txt": "data\\zeros3_raw.txt"
+  }
+}

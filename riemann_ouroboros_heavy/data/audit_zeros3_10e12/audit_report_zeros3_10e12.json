@@ -1,0 +1,118 @@
+{
+  "total_rows": 596,
+  "summary_by_type_intensity": {
+    "zeta|raw": {
+      "n_blocks": 49,
+      "vote_rate_gue": 1.0,
+      "mean_ks_margin": 0.294533,
+      "std_ks_margin": 0.033871,
+      "mean_r": 0.600473
+    },
+    "zeta|soft": {
+      "n_blocks": 49,
+      "vote_rate_gue": 1.0,
+      "mean_ks_margin": 0.287919,
+      "std_ks_margin": 0.040225,
+      "mean_r": 0.588358
+    },
+    "zeta|mid": {
+      "n_blocks": 49,
+      "vote_rate_gue": 1.0,
+      "mean_ks_margin": 0.287919,
+      "std_ks_margin": 0.040225,
+      "mean_r": 0.588358
+    },
+    "zeta|strong": {
+      "n_blocks": 49,
+      "vote_rate_gue": 1.0,
+      "mean_ks_margin": 0.296558,
+      "std_ks_margin": 0.034846,
+      "mean_r": 0.594111
+    },
+    "gue|raw": {
+      "n_blocks": 50,
+      "vote_rate_gue": 1.0,
+      "mean_ks_margin": 0.298448,
+      "std_ks_margin": 0.032772,
+      "mean_r": 0.603274
+    },
+    "gue|soft": {
+      "n_blocks": 50,
+      "vote_rate_gue": 1.0,
+      "mean_ks_margin": 0.289363,
+      "std_ks_margin": 0.04189,
+      "mean_r": 0.591452
+    },
+    "gue|mid": {
+      "n_blocks": 50,
+      "vote_rate_gue": 1.0,
+      "mean_ks_margin": 0.289363,
+      "std_ks_margin": 0.04189,
+      "mean_r": 0.591452
+    },
+    "gue|strong": {
+      "n_blocks": 50,
+      "vote_rate_gue": 1.0,
+      "mean_ks_margin": 0.297742,
+      "std_ks_margin": 0.039723,
+      "mean_r": 0.597326
+    },
+    "poisson|raw": {
+      "n_blocks": 50,
+      "vote_rate_gue": 0.0,
+      "mean_ks_margin": -0.294549,
+      "std_ks_margin": 0.03456,
+      "mean_r": 0.391184
+    },
+    "poisson|soft": {
+      "n_blocks": 50,
+      "vote_rate_gue": 0.0,
+      "mean_ks_margin": -0.284013,
+      "std_ks_margin": 0.035347,
+      "mean_r": 0.35807
+    },
+    "poisson|mid": {
+      "n_blocks": 50,
+      "vote_rate_gue": 0.0,
+      "mean_ks_margin": -0.284013,
+      "std_ks_margin": 0.035347,
+      "mean_r": 0.35807
+    },
+    "poisson|strong": {
+      "n_blocks": 50,
+      "vote_rate_gue": 0.0,
+      "mean_ks_margin": -0.258315,
+      "std_ks_margin": 0.042359,
+      "mean_r": 0.362342
+    }
+  },
+  "robustness": {
+    "zeta_available": true,
+    "intensities": {
+      "raw": {
+        "n": 49,
+        "gue_votes": 49,
+        "vote_rate": 1.0
+      },
+      "soft": {
+        "n": 49,
+        "gue_votes": 49,
+        "vote_rate": 1.0
+      },
+      "mid": {
+        "n": 49,
+        "gue_votes": 49,
+        "vote_rate": 1.0
+      },
+      "strong": {
+        "n": 49,
+        "gue_votes": 49,
+        "vote_rate": 1.0
+      }
+    },
+    "passing_intensities": 4,
+    "total_intensities": 4,
+    "robust": true
+  },
+  "top_outliers_count": 20
+}

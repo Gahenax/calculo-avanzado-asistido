@@ -59,6 +59,18 @@ ODLYZKO_TABLES = {
         "expected_count": 10000,
         "size_mb": 0.5,
     },
+    "zeros4": {
+        "url": "https://www.dtc.umn.edu/~odlyzko/zeta_tables/zeros4",
+        "description": "Zeros 10^21+1 through 10^21+10^4",
+        "expected_count": 10000,
+        "size_mb": 0.5,
+    },
+    "zeros5": {
+        "url": "https://www.dtc.umn.edu/~odlyzko/zeta_tables/zeros5",
+        "description": "Zeros 10^22+1 through 10^22+10^4",
+        "expected_count": 10000,
+        "size_mb": 0.5,
+    },
     "zeros6": {
         "url": "https://www.dtc.umn.edu/~odlyzko/zeta_tables/zeros6",
         "description": "First 2,001,052 zeros, accurate to 4e-9",

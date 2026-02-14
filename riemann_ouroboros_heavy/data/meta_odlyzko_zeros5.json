@@ -1,0 +1,36 @@
+{
+  "source": "https://www.dtc.umn.edu/~odlyzko/zeta_tables/zeros5",
+  "table": "zeros5",
+  "description": "Zeros 10^22+1 through 10^22+10^4",
+  "n_zeros": 10000,
+  "n_spacings": 9999,
+  "t_range": [
+    8226.68016095,
+    9568.33538975
+  ],
+  "spacings_mean": 1.0,
+  "spacings_std": 0.419305,
+  "density_ratio": 6.454699,
+  "max_gap": 0.4274817300010909,
+  "sha256_zeros": "2eb153ea4638b573776aae99663314dc4f5914077c4fa9b33f38914c1fda0d0c",
+  "time_s": 0.7,
+  "validation": {
+    "n_zeros": 10000,
+    "valid": true,
+    "issues": [
+      "Density anomaly: observed/expected = 6.455"
+    ],
+    "min_gap": 0.008811240000795806,
+    "max_gap": 0.4274817300010909,
+    "mean_gap": 0.13417894077407744,
+    "t_min": 8226.68016095,
+    "t_max": 9568.33538975,
+    "density_ratio": 6.454699,
+    "expected_count_in_range": 1549.1
+  },
+  "files": {
+    "zeros_npy": "data\\zeros_odlyzko_zeros5.npy",
+    "spacings_npy": "data\\spacings_odlyzko_zeros5.npy",
+    "raw_txt": "data\\zeros5_raw.txt"
+  }
+}
