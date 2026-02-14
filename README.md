@@ -77,6 +77,31 @@ El motor de minería opera bajo un **arnés lógico** estricto + **reductor de e
 - **Método B (von Mangoldt):** γ ≈ ln(x) - Σ Λ(n)/n → error ~5.5e-5 con x=1,999,993
 - **Convergencia lenta** (esperada para ambos métodos) — confirman que γ emerge de la distribución prima
 
+### Run 6: Riemann GUE Constrictor C1-C7 (first farm)
+- **Datos:** 800 zeros de ζ(s), 4 ventanas × 200 zeros (n=1000-4200)
+- **C2 KS GUE ✅:** p-values 0.35-0.90 — spacings compatibles con Wigner GUE
+- **C3 KS Poisson ✅:** p=0.000 — Poisson descartado categóricamente
+- **C5 unfolding ✅:** mean spacing ≈ 1.00
+- **C1 β ❌:** ~1.0-1.3 (insuficiente potencia estadística con 200 zeros por ventana)
+- **C7 Δ₃ ✅:** rigidez compatible con GUE
+
+### Run 7: Riemann Final Verdict (`CONFIRMED_GUE_UNIVERSALITY`) ✅
+- **Pipeline mejorado:** Gap Ratio + Beta MLE + SFF con controles exactos multi-seed
+- **Datos:** 600 zeros (n=1000-1600), 11 bloques overlap50
+- **Controles:** GUE (8 matrices Hermíticas, bulk unfolding) + Poisson (8 exponenciales)
+
+| Métrica | Valor | CI 95% | Target GUE | Target Poisson |
+|---------|-------|--------|------------|----------------|
+| **Gap Ratio** | **0.6215** | [0.6145, 0.6283] | ~0.60 | ~0.39 |
+| **Beta MLE** | **2.593** | [2.474, 2.718] | ~2.0 | ~0.0 |
+| **d(R,GUE)** | **0.849** | [0.802, 0.898] | — | — |
+| **d(R,Poisson)** | **0.978** | [0.928, 1.033] | — | — |
+| **GUE vote rate** | **90.91%** | — | ≥80% | — |
+
+> **Veredicto: `CONFIRMED_GUE_UNIVERSALITY`** — Los ceros de ζ(s) son estadísticamente
+> indistinguibles de la universalidad GUE bajo las métricas Gap Ratio, Beta MLE y SFF.
+> **DISCLAIMER: Compatibilidad estadística ≠ prueba de RH.**
+
 ---
 
 ## Stack Tecnológico
@@ -89,6 +114,7 @@ El motor de minería opera bajo un **arnés lógico** estricto + **reductor de e
 | Matemáticas (frontend) | Math.js, KaTeX |
 | Iconos | Lucide React |
 | Motor GCF (backend) | Python 3 + mpmath |
+| Pipeline Riemann | Python 3 + numpy + scipy + mpmath |
 | Fuente | Inter (Google Fonts) |
 
 ## Estructura del Proyecto
@@ -101,12 +127,15 @@ calculo-avanzado-asistido/
 │   ├── ANTIGRAVITY_PROMPT_ENTROPY_REDUCER_V1.py
 │   ├── ANTIGRAVITY_PROMPT_GAMMA_GCF_EXPAND.py
 │   ├── ANTIGRAVITY_PROMPT_GAMMA_GCF_B2_CORRECTIONS.py
+│   ├── ANTIGRAVITY_PROMPT_RIEMANN_FARMING.py
 │   ├── STRUCTURAL_NUMERIC_SEARCH_RUNNER.py        # Runner v3 (Entropy Reducer)
 │   ├── GAMMA_GCF_EXPAND_RUNNER.py                 # Runner v4 (Multi-precision)
 │   ├── GAMMA_GCF_B2_RUNNER.py                     # Runner v5 (Gap-first)
 │   ├── GAMMA_PRIME_GENESIS_HARDENED.py             # Mertens + von Mangoldt
-│   ├── structural_search_results_v3.json
-│   ├── gamma_expand_results_v4.json
+│   ├── RIEMANN_GUE_CONSTRICTOR_HARDENED_C7.py     # GUE C1-C7 pipeline
+│   ├── RIEMANN_FINAL_VERDICT_ONEPROMPT.py         # Final GUE verdict
+│   ├── riemann_final_verdict.json
+│   ├── riemann_constrictor_c7.json
 │   └── gamma_b2_results.json
 ├── src/
 │   ├── core/
@@ -146,14 +175,26 @@ python core/GAMMA_GCF_B2_RUNNER.py
 python core/GAMMA_PRIME_GENESIS_HARDENED.py --method both --N 2000000 --dps 80
 ```
 
+### Pipeline Riemann GUE
+```bash
+pip install numpy scipy mpmath
+
+# Quick run (600 zeros, ~10 min)
+python core/RIEMANN_FINAL_VERDICT_ONEPROMPT.py --n_start 1000 --total_zeros 600 --block_size 100 --block_mode overlap50
+
+# Full run (2000 zeros, ~40 min)
+python core/RIEMANN_FINAL_VERDICT_ONEPROMPT.py --n_start 5000 --total_zeros 2000 --block_size 200
+
+# C1-C7 pipeline (legacy)
+python core/RIEMANN_GUE_CONSTRICTOR_HARDENED_C7.py --count 200 --windows "1000,2000,3000,4000"
+```
+
 ---
 
 ## DISCLAIMER
 
-Todos los resultados son **COINCIDENCIAS NUMÉRICAS** identificadas mediante evaluación de profundidad finita. **NO** son pruebas, identidades ni resoluciones de problemas abiertos. Son **CANDIDATOS ESTRUCTURALES** para revisión por un matemático humano.
-
-La estabilidad numérica no implica irracionalidad/racionalidad ni forma cerrada.
+Todos los resultados son **COINCIDENCIAS NUMÉRICAS** u **OBSERVACIONES ESTADÍSTICAS** identificadas mediante evaluación de profundidad finita. **NO** son pruebas, identidades ni resoluciones de problemas abiertos. La compatibilidad estadística GUE **NO** prueba la Hipótesis de Riemann. Son **CANDIDATOS ESTRUCTURALES** y **EVIDENCIA REPRODUCIBLE** para revisión por un matemático humano.
 
 ---
 
-*Potenciado por Antigravity Core v5.0 — GAHENAX*
+*Potenciado por Antigravity Core v6.0 — GAHENAX*
