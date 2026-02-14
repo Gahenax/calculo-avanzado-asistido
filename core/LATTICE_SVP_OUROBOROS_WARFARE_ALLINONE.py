@@ -16,11 +16,10 @@ from __future__ import annotations
 import argparse
 import csv
 import math
-import os
 import sys
 import time
 from dataclasses import dataclass, fields, asdict
-from typing import List, Tuple, Optional
+from typing import List, Tuple
 
 import numpy as np
 
@@ -66,17 +65,10 @@ class LatticeOracle:
         self.mix_k_abs = mix_k_abs
 
     def generate_challenge(self, n: int, seed: int) -> LatticeChallenge:
-        """
-        Generate a deterministic integer lattice challenge.
-        B = U @ D where D = diag(scales), U = product of unimodular row ops.
-        """
         rng = np.random.RandomState(seed)
-
-        # Diagonal lattice with controlled scale
         scales = np.array([1000 + 50 * i for i in range(n)], dtype=np.int64)
         D = np.diag(scales)
 
-        # Build unimodular matrix via row operations
         U = np.eye(n, dtype=np.int64)
         n_ops = self.mix_factor * n
         for _ in range(n_ops):
@@ -89,42 +81,30 @@ class LatticeOracle:
                 continue
             U[i] = U[i] + k * U[j]
 
-        # Basis = U @ D
         B = U @ D
 
-        # Overflow-like guard: check for extreme int64 values
         if np.any(np.abs(B) > INT64_EXTREME):
             raise OverflowError(
                 f"Basis contains extreme int64 values (seed={seed}, n={n}). "
                 f"Reduce mix_factor or mix_k_abs."
             )
 
-        # Lattice invariants
         log_det = float(np.sum(np.log(scales.astype(np.float64))))
         gh = self._gaussian_heuristic(n, log_det)
 
         return LatticeChallenge(
-            basis=B,
-            dimension=n,
-            log_determinant=log_det,
-            gaussian_heuristic=gh,
-            seed=seed,
+            basis=B, dimension=n, log_determinant=log_det,
+            gaussian_heuristic=gh, seed=seed,
         )
 
     @staticmethod
     def _gaussian_heuristic(n: int, log_det: float) -> float:
-        """GH = sqrt(n / (2*pi*e)) * det(L)^{1/n}."""
         log_gh = 0.5 * (math.log(n) - math.log(2.0 * math.pi * math.e))
         log_gh += log_det / n
         return math.exp(log_gh)
 
     def evaluate(self, challenge: LatticeChallenge,
                  coeffs: np.ndarray) -> float:
-        """
-        Given integer coefficients, compute ||coeffs @ basis||.
-        coeffs: 1D int64 array of length n.
-        Returns: Euclidean norm as float64.
-        """
         coeffs = np.asarray(coeffs, dtype=np.int64).ravel()
         if coeffs.shape[0] != challenge.dimension:
             raise ValueError(
@@ -136,7 +116,6 @@ class LatticeOracle:
         return float(np.linalg.norm(v))
 
     def check_success(self, challenge: LatticeChallenge, norm: float) -> bool:
-        """Success if norm/GH < 1.05."""
         if challenge.gaussian_heuristic <= 0:
             return False
         return (norm / challenge.gaussian_heuristic) < 1.05
@@ -147,74 +126,76 @@ class LatticeOracle:
 # ============================================================================
 
 def estimate_delta0(n: int, log_det: float, norm: float) -> float:
-    """
-    Root Hermite factor delta_0:
-      delta_0 = exp( (log(norm)/n) - (log_det / n^2) )
-    """
     if norm <= 0 or n <= 0:
         return float("inf")
     return math.exp((math.log(norm) / n) - (log_det / (n * n)))
 
 
 # ============================================================================
-# D) LLL BASELINE WITH TRACKING (optimized incremental GS)
+# D) GRAM-SCHMIDT (single implementation, shared by LLL + Global Policy)
 # ============================================================================
 
 def gram_schmidt(B: np.ndarray) -> Tuple[np.ndarray, np.ndarray, np.ndarray]:
     """
     Classical Gram-Schmidt on rows of B (float64).
-    Returns: mu (lower triangular), Bstar (orthogonalized rows), Bstar_norms_sq.
+    Returns: (mu, Bstar, Bstar_norms_sq).
+    mu: lower-triangular GS coefficients.
+    Bstar: orthogonalized rows.
+    Bstar_norms_sq: squared norms of Bstar rows.
     """
     n = B.shape[0]
     Bf = B.astype(np.float64)
     mu = np.zeros((n, n), dtype=np.float64)
     Bstar = np.zeros_like(Bf)
-    Bstar_norms = np.zeros(n, dtype=np.float64)
+    Bstar_norms_sq = np.zeros(n, dtype=np.float64)
 
     for i in range(n):
         Bstar[i] = Bf[i].copy()
         for j in range(i):
-            if Bstar_norms[j] > 1e-14:
-                mu[i, j] = np.dot(Bf[i], Bstar[j]) / Bstar_norms[j]
+            if Bstar_norms_sq[j] > 1e-14:
+                mu[i, j] = np.dot(Bf[i], Bstar[j]) / Bstar_norms_sq[j]
             else:
                 mu[i, j] = 0.0
             Bstar[i] -= mu[i, j] * Bstar[j]
-        Bstar_norms[i] = np.dot(Bstar[i], Bstar[i])
+        Bstar_norms_sq[i] = np.dot(Bstar[i], Bstar[i])
 
-    return mu, Bstar, Bstar_norms
+    return mu, Bstar, Bstar_norms_sq
 
 
 def _gs_update_from(B: np.ndarray, mu: np.ndarray, Bstar: np.ndarray,
-                    Bstar_norms: np.ndarray, start: int) -> None:
+                    Bstar_norms_sq: np.ndarray, start: int) -> None:
     """Recompute GS from row 'start' onwards (in-place)."""
     n = B.shape[0]
     Bf = B.astype(np.float64)
     for i in range(start, n):
         Bstar[i] = Bf[i].copy()
         for j in range(i):
-            if Bstar_norms[j] > 1e-14:
-                mu[i, j] = np.dot(Bf[i], Bstar[j]) / Bstar_norms[j]
+            if Bstar_norms_sq[j] > 1e-14:
+                mu[i, j] = np.dot(Bf[i], Bstar[j]) / Bstar_norms_sq[j]
             else:
                 mu[i, j] = 0.0
             Bstar[i] -= mu[i, j] * Bstar[j]
-        Bstar_norms[i] = np.dot(Bstar[i], Bstar[i])
+        Bstar_norms_sq[i] = np.dot(Bstar[i], Bstar[i])
 
+
+# ============================================================================
+# E) LLL BASELINE WITH TRACKING
+# ============================================================================
 
 def lll_reduce(basis_int: np.ndarray, delta: float = 0.99,
-               max_iter_factor: int = 50
+               max_iter_factor: int = DEFAULT_MAX_ITER_FACTOR
                ) -> Tuple[np.ndarray, np.ndarray, int, bool]:
     """
     LLL reduction with unimodular transform tracking.
     Uses incremental Gram-Schmidt updates for performance.
     Returns: (B_reduced int64, U int64, iterations, stopped_early).
-    B_reduced = U @ basis_int.
     """
     n = basis_int.shape[0]
     B = basis_int.copy().astype(np.int64)
     U = np.eye(n, dtype=np.int64)
     max_iters = max(n * n * max_iter_factor, 1000)
 
-    mu, Bstar, Bstar_norms = gram_schmidt(B)
+    mu, Bstar, Bstar_norms_sq = gram_schmidt(B)
 
     k = 1
     iters = 0
@@ -232,23 +213,20 @@ def lll_reduce(basis_int: np.ndarray, delta: float = 0.99,
                 q = int(round(mu[k, j]))
                 B[k] -= q * B[j]
                 U[k] -= q * U[j]
-                # Update mu for row k
                 for ll in range(j):
                     mu[k, ll] -= q * mu[j, ll]
                 mu[k, j] -= q
 
         # Lovasz condition
-        lhs = Bstar_norms[k] + mu[k, k - 1] ** 2 * Bstar_norms[k - 1]
-        rhs = delta * Bstar_norms[k - 1]
+        lhs = Bstar_norms_sq[k] + mu[k, k - 1] ** 2 * Bstar_norms_sq[k - 1]
+        rhs = delta * Bstar_norms_sq[k - 1]
 
         if lhs >= rhs:
             k += 1
         else:
-            # Swap rows k and k-1
             B[[k, k - 1]] = B[[k - 1, k]]
             U[[k, k - 1]] = U[[k - 1, k]]
-            # Incremental GS update: only recompute from k-1 onwards
-            _gs_update_from(B, mu, Bstar, Bstar_norms, k - 1)
+            _gs_update_from(B, mu, Bstar, Bstar_norms_sq, k - 1)
             k = max(k - 1, 1)
 
     return B, U, iters, stopped
@@ -258,65 +236,105 @@ def solve_challenge_with_lll(
     oracle: LatticeOracle,
     challenge: LatticeChallenge,
     delta: float = 0.99,
-    max_iter_factor: int = 200,
+    max_iter_factor: int = DEFAULT_MAX_ITER_FACTOR,
 ) -> Tuple[float, np.ndarray, float, bool, int, float, int]:
-    """
-    Run LLL on challenge and evaluate shortest row.
-    Returns: (norm, coeffs, elapsed, stopped, iters, min_row_norm, min_idx).
-    """
+    """Run LLL on challenge and evaluate shortest row."""
     t0 = time.time()
     B_red, U, iters, stopped = lll_reduce(
         challenge.basis.copy(), delta=delta, max_iter_factor=max_iter_factor
     )
     elapsed = time.time() - t0
 
-    # Find shortest row in reduced basis
     B_red_f = B_red.astype(np.float64)
     row_norms = np.array([np.linalg.norm(B_red_f[i]) for i in range(B_red.shape[0])])
     min_idx = int(np.argmin(row_norms))
     min_row_norm = float(row_norms[min_idx])
-
-    # Coefficients for the shortest row: U[min_idx] are the integer
-    # coefficients such that B_red[min_idx] = U[min_idx] @ basis_orig
     coeffs = U[min_idx].copy()
-
-    # Oracle evaluation (recompute norm from original)
     real_norm = oracle.evaluate(challenge, coeffs)
 
     return real_norm, coeffs, elapsed, stopped, iters, min_row_norm, min_idx
 
 
 # ============================================================================
-# E) BLACKBOX SOLVER HOOK
+# F) BLACKBOX SOLVER — GAHENAX Global Policy Solver
 # ============================================================================
 
 def black_box_solver(basis: np.ndarray, **kwargs) -> np.ndarray:
     """
-    BlackBox solver mount point.
-    User can replace this function's internals.
+    GAHENAX Global Policy Solver (Devoured Core)
+
+    Hybrid strategy:
+    - Sequential size reduction (like LLL, prevents mu overflow)
+    - GLOBAL swap selection (picks worst Lovasz violation, not sequential k++)
+    - Full GS recompute per perception pass
+    - Terminates at stable state or action budget
 
     Input:  basis (int64 ndarray, rows = lattice vectors)
     Output: coeffs (int64 1D array, length n)
-            such that coeffs @ basis is a short lattice vector.
-
-    Default: runs LLL and returns shortest-row coefficients.
     """
-    n = basis.shape[0]
     delta = kwargs.get("delta", 0.99)
-    max_iter_factor = kwargs.get("max_iter_factor", 200)
+    max_actions_factor = kwargs.get("max_iter_factor", DEFAULT_MAX_ITER_FACTOR)
 
-    B_red, U, _, _ = lll_reduce(basis.copy(), delta=delta,
-                                max_iter_factor=max_iter_factor)
+    B = basis.astype(np.int64).copy()
+    n = B.shape[0]
+    U = np.eye(n, dtype=np.int64)
 
-    B_red_f = B_red.astype(np.float64)
-    row_norms = [np.linalg.norm(B_red_f[i]) for i in range(n)]
-    min_idx = int(np.argmin(row_norms))
+    max_actions = n * n * max_actions_factor
+    actions = 0
 
-    return U[min_idx].astype(np.int64)
+    while actions < max_actions:
+        # === PERCEPTION: full Gram-Schmidt ===
+        mu, _Bstar, Bstar_norms_sq = gram_schmidt(B)
+
+        # === 1) SEQUENTIAL SIZE REDUCTION (all rows) ===
+        did_reduce = False
+        for i in range(1, n):
+            for j in range(i - 1, -1, -1):
+                if abs(mu[i, j]) > 0.5:
+                    q = int(round(mu[i, j]))
+                    if q != 0:
+                        B[i] -= q * B[j]
+                        U[i] -= q * U[j]
+                        for ll in range(j):
+                            mu[i, ll] -= q * mu[j, ll]
+                        mu[i, j] -= q
+                        actions += 1
+                        did_reduce = True
+
+        # === 2) GLOBAL LOVASZ SWAP (pick worst violation) ===
+        # Recompute GS after size reduction for accurate Lovász check
+        if did_reduce:
+            mu, _Bstar, Bstar_norms_sq = gram_schmidt(B)
+
+        best_violation = 0.0
+        swap_k = -1
+
+        for k in range(1, n):
+            lhs = Bstar_norms_sq[k] + mu[k, k - 1] ** 2 * Bstar_norms_sq[k - 1]
+            rhs = delta * Bstar_norms_sq[k - 1]
+            if lhs < rhs:
+                violation = rhs - lhs
+                if violation > best_violation:
+                    best_violation = violation
+                    swap_k = k
+
+        if swap_k != -1:
+            B[[swap_k, swap_k - 1]] = B[[swap_k - 1, swap_k]]
+            U[[swap_k, swap_k - 1]] = U[[swap_k - 1, swap_k]]
+            actions += 1
+            continue
+
+        # === STABLE STATE ===
+        break
+
+    # === EXTRACTION ===
+    norms = np.linalg.norm(B.astype(np.float64), axis=1)
+    best_idx = int(np.argmin(norms))
+    return U[best_idx].astype(np.int64)
 
 
 # ============================================================================
-# F) WARFARE SUITE
+# G) WARFARE SUITE
 # ============================================================================
 
 @dataclass
@@ -334,7 +352,7 @@ class ResultRow:
 
 def run_single_battle(
     dim: int, seed: int, oracle: LatticeOracle,
-    delta: float = 0.99, max_iter_factor: int = 200,
+    delta: float = 0.99, max_iter_factor: int = DEFAULT_MAX_ITER_FACTOR,
 ) -> List[ResultRow]:
     """Run LLL baseline + BlackBox on a single challenge."""
     challenge = oracle.generate_challenge(dim, seed)
@@ -364,7 +382,6 @@ def run_single_battle(
                                      max_iter_factor=max_iter_factor)
         t_bb = time.time() - t0
 
-        # Guard: verify basis was not mutated
         if not np.array_equal(basis_copy, challenge.basis):
             raise RuntimeError("BlackBox mutated the basis copy (integrity violation).")
 
@@ -384,11 +401,9 @@ def run_single_battle(
     except Exception as ex:
         rows.append(ResultRow(
             dimension=dim, seed=seed, algorithm="BlackBox",
-            wall_time=0.0,
-            norm_found=float("inf"),
+            wall_time=0.0, norm_found=float("inf"),
             gh_target=round(challenge.gaussian_heuristic, 4),
-            ratio_gh=float("inf"),
-            delta_0=float("inf"),
+            ratio_gh=float("inf"), delta_0=float("inf"),
             is_success=False,
         ))
         print(f"  [BlackBox FAIL] dim={dim} seed={seed}: {ex}", file=sys.stderr)
@@ -399,7 +414,6 @@ def run_single_battle(
 # --- CSV I/O ---
 
 def init_csv(path: str) -> None:
-    """Write CSV header."""
     fieldnames = [f.name for f in fields(ResultRow)]
     with open(path, "w", newline="", encoding="utf-8") as f:
         writer = csv.DictWriter(f, fieldnames=fieldnames)
@@ -407,7 +421,6 @@ def init_csv(path: str) -> None:
 
 
 def append_csv(path: str, rows: List[ResultRow]) -> None:
-    """Append result rows to CSV."""
     fieldnames = [f.name for f in fields(ResultRow)]
     with open(path, "a", newline="", encoding="utf-8") as f:
         writer = csv.DictWriter(f, fieldnames=fieldnames)
@@ -418,7 +431,6 @@ def append_csv(path: str, rows: List[ResultRow]) -> None:
 # --- Summary ---
 
 def print_summary(all_rows: List[ResultRow]) -> None:
-    """Print aggregated summary table grouped by (algorithm, dimension)."""
     from collections import defaultdict
 
     groups = defaultdict(list)
@@ -450,31 +462,24 @@ def print_summary(all_rows: List[ResultRow]) -> None:
 
 
 # ============================================================================
-# G) CLI + MAIN
+# H) CLI + MAIN
 # ============================================================================
 
 def parse_args() -> argparse.Namespace:
     ap = argparse.ArgumentParser(
         description="Ouroboros SVP Warfare Suite - Lattice benchmark harness"
     )
-    ap.add_argument("--dims", type=str, default=",".join(str(d) for d in DEFAULT_DIMENSIONS),
-                    help="Comma-separated dimensions (default: 40,50,60,70,80)")
-    ap.add_argument("--samples", type=int, default=DEFAULT_SAMPLES_PER_DIM,
-                    help=f"Samples per dimension (default: {DEFAULT_SAMPLES_PER_DIM})")
-    ap.add_argument("--seed0", type=int, default=DEFAULT_SEED0,
-                    help=f"Starting seed (default: {DEFAULT_SEED0})")
-    ap.add_argument("--seed_step", type=int, default=DEFAULT_SEED_STEP,
-                    help=f"Seed increment (default: {DEFAULT_SEED_STEP})")
-    ap.add_argument("--delta", type=float, default=DEFAULT_LLL_DELTA,
-                    help=f"LLL delta parameter (default: {DEFAULT_LLL_DELTA})")
-    ap.add_argument("--max_iter_factor", type=int, default=DEFAULT_MAX_ITER_FACTOR,
-                    help=f"Max iterations = n*n*factor (default: {DEFAULT_MAX_ITER_FACTOR})")
-    ap.add_argument("--mix_factor", type=int, default=DEFAULT_MIX_FACTOR,
-                    help=f"Unimodular mixing operations = mix_factor*n (default: {DEFAULT_MIX_FACTOR})")
-    ap.add_argument("--mix_k_abs", type=int, default=DEFAULT_MIX_K_ABS,
-                    help=f"Unimodular k range [-k, +k] (default: {DEFAULT_MIX_K_ABS})")
-    ap.add_argument("--out", type=str, default=DEFAULT_OUTPUT_CSV,
-                    help=f"Output CSV path (default: {DEFAULT_OUTPUT_CSV})")
+    ap.add_argument("--dims", type=str,
+                    default=",".join(str(d) for d in DEFAULT_DIMENSIONS),
+                    help="Comma-separated dimensions")
+    ap.add_argument("--samples", type=int, default=DEFAULT_SAMPLES_PER_DIM)
+    ap.add_argument("--seed0", type=int, default=DEFAULT_SEED0)
+    ap.add_argument("--seed_step", type=int, default=DEFAULT_SEED_STEP)
+    ap.add_argument("--delta", type=float, default=DEFAULT_LLL_DELTA)
+    ap.add_argument("--max_iter_factor", type=int, default=DEFAULT_MAX_ITER_FACTOR)
+    ap.add_argument("--mix_factor", type=int, default=DEFAULT_MIX_FACTOR)
+    ap.add_argument("--mix_k_abs", type=int, default=DEFAULT_MIX_K_ABS)
+    ap.add_argument("--out", type=str, default=DEFAULT_OUTPUT_CSV)
     return ap.parse_args()
 
 
@@ -520,7 +525,6 @@ def main() -> int:
                 append_csv(args.out, rows)
                 all_rows.extend(rows)
 
-                # Print brief progress
                 lll_row = next((r for r in rows if r.algorithm == "LLL"), None)
                 bb_row = next((r for r in rows if r.algorithm == "BlackBox"), None)
                 lll_ratio = f"{lll_row.ratio_gh:.4f}" if lll_row else "N/A"
@@ -538,7 +542,6 @@ def main() -> int:
 
     elapsed = time.time() - t_global
 
-    # Summary
     print_summary(all_rows)
     print(f"\nTotal time: {elapsed:.1f}s")
     print(f"CSV saved: {args.out} ({len(all_rows)} rows)")
