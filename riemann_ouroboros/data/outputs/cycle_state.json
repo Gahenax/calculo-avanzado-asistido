@@ -1,0 +1,10 @@
+{
+  "iteration": 3,
+  "base_seed": 42,
+  "seen_blocks": 60,
+  "last_summaries": [],
+  "stop_reasons": [
+    "iter=3: stagnation for 2 consecutive iters",
+    "completed max_iterations=3"
+  ]
+}

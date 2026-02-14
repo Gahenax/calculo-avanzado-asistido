@@ -1,0 +1,156 @@
+{
+  "total_rows": 7200,
+  "total_blocks": 60,
+  "summary_by_type": {
+    "gue": {
+      "n_blocks": 30,
+      "pct_converged": 0.0,
+      "pct_stalled": 0.0,
+      "feature_means": {
+        "radius_var": 0.49225008,
+        "sphericity": 0.06886867,
+        "laplacian_energy": 0.00046179,
+        "mean_flow_norm": 0.01066459,
+        "reducer_ks": 0.0910728
+      },
+      "feature_stds": {
+        "radius_var": 0.01749262,
+        "sphericity": 0.00591968,
+        "laplacian_energy": 0.0001329,
+        "mean_flow_norm": 0.00111213,
+        "reducer_ks": 0.00448553
+      }
+    },
+    "poisson": {
+      "n_blocks": 30,
+      "pct_converged": 0.0,
+      "pct_stalled": 0.0,
+      "feature_means": {
+        "radius_var": 0.4927572,
+        "sphericity": 0.08498184,
+        "laplacian_energy": 0.00042815,
+        "mean_flow_norm": 0.01023291,
+        "reducer_ks": 0.09117287
+      },
+      "feature_stds": {
+        "radius_var": 0.02569851,
+        "sphericity": 0.00847657,
+        "laplacian_energy": 9.291e-05,
+        "mean_flow_norm": 0.00106265,
+        "reducer_ks": 0.00310889
+      }
+    }
+  },
+  "top_outliers": [
+    {
+      "block_id": "gue_21042_0008",
+      "type": "gue",
+      "status": "running",
+      "d_gue": 0.765712,
+      "d_poi": 2.242938,
+      "outlier_score": -1.477226,
+      "radius_var": 0.49733576,
+      "sphericity": 0.06274277,
+      "laplacian_energy": 0.0004617485
+    },
+    {
+      "block_id": "gue_21042_0005",
+      "type": "gue",
+      "status": "running",
+      "d_gue": 0.716345,
+      "d_poi": 2.141074,
+      "outlier_score": -1.424728,
+      "radius_var": 0.49062037,
+      "sphericity": 0.06485664,
+      "laplacian_energy": 0.0004905426
+    },
+    {
+      "block_id": "poisson_2042_0005",
+      "type": "poisson",
+      "status": "running",
+      "d_gue": 2.999647,
+      "d_poi": 1.597312,
+      "outlier_score": 1.402335,
+      "radius_var": 0.5023104,
+      "sphericity": 0.09706608,
+      "laplacian_energy": 0.0004289467
+    },
+    {
+      "block_id": "poisson_22042_0005",
+      "type": "poisson",
+      "status": "running",
+      "d_gue": 2.227704,
+      "d_poi": 0.871242,
+      "outlier_score": 1.356462,
+      "radius_var": 0.4814992,
+      "sphericity": 0.09057459,
+      "laplacian_energy": 0.0003752559
+    },
+    {
+      "block_id": "poisson_2042_0004",
+      "type": "poisson",
+      "status": "running",
+      "d_gue": 2.351851,
+      "d_poi": 1.020685,
+      "outlier_score": 1.331166,
+      "radius_var": 0.49798292,
+      "sphericity": 0.09117902,
+      "laplacian_energy": 0.0004693032
+    },
+    {
+      "block_id": "gue_21042_0000",
+      "type": "gue",
+      "status": "running",
+      "d_gue": 1.165733,
+      "d_poi": 2.481671,
+      "outlier_score": -1.315938,
+      "radius_var": 0.48158506,
+      "sphericity": 0.06294353,
+      "laplacian_energy": 0.000469621
+    },
+    {
+      "block_id": "poisson_22042_0000",
+      "type": "poisson",
+      "status": "running",
+      "d_gue": 2.919267,
+      "d_poi": 1.609789,
+      "outlier_score": 1.309479,
+      "radius_var": 0.49182421,
+      "sphericity": 0.09559176,
+      "laplacian_energy": 0.0003724157
+    },
+    {
+      "block_id": "poisson_22042_0009",
+      "type": "poisson",
+      "status": "running",
+      "d_gue": 3.651561,
+      "d_poi": 2.352547,
+      "outlier_score": 1.299014,
+      "radius_var": 0.45940089,
+      "sphericity": 0.10199321,
+      "laplacian_energy": 0.0003651934
+    },
+    {
+      "block_id": "gue_11042_0009",
+      "type": "gue",
+      "status": "running",
+      "d_gue": 1.324887,
+      "d_poi": 2.601075,
+      "outlier_score": -1.276188,
+      "radius_var": 0.50234133,
+      "sphericity": 0.05846001,
+      "laplacian_energy": 0.0004278507
+    },
+    {
+      "block_id": "gue_11042_0003",
+      "type": "gue",
+      "status": "running",
+      "d_gue": 1.156269,
+      "d_poi": 2.297212,
+      "outlier_score": -1.140944,
+      "radius_var": 0.48343328,
+      "sphericity": 0.06670245,
+      "laplacian_energy": 0.0004944897
+    }
+  ]
+}

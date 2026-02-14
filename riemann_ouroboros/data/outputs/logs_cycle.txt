@@ -1,0 +1,59 @@
+[00:32:46] ======================================================================
+[00:32:46] OUROBOROS-RH LAB  --  Cycle Start
+[00:32:46] Config: config.json
+[00:32:46] Max iterations: 3
+[00:32:46] Blocks/iter: {'zeta': 0, 'gue': 10, 'poisson': 10}
+[00:32:46] Flow: steps=120, points=1500
+[00:32:46] ======================================================================
+[00:32:46] 
+--- Iteration 1/3 (seed=42) ---
+[00:32:50]   Total blocks: 20 (gue=10, poisson=10)
+[00:33:02]     processed 5/20 (gue) rows=600
+[00:33:06]     processed 10/20 (gue) rows=1200
+[00:33:10]     processed 15/20 (poisson) rows=1800
+[00:33:11]     processed 20/20 (poisson) rows=2400
+[00:33:11]   Iteration time: 24.4s | merged: 0.41 MB | total rows: 2400
+[00:33:11]   AUDIT:
+[00:33:11]     gue: n=10 converged=0% stalled=0%
+[00:33:11]     poisson: n=10 converged=0% stalled=0%
+[00:33:11]   TOP OUTLIERS:
+[00:33:11]     gue_1042_0000: score=-1.5338 d_gue=0.8751 d_poi=2.4089 status=running
+[00:33:11]     poisson_2042_0001: score=1.5010 d_gue=3.1217 d_poi=1.6207 status=running
+[00:33:11]     poisson_2042_0002: score=1.4868 d_gue=3.4043 d_poi=1.9176 status=running
+[00:33:11]     gue_1042_0002: score=-1.4250 d_gue=2.1721 d_poi=3.5971 status=running
+[00:33:11]     poisson_2042_0005: score=1.3903 d_gue=2.8664 d_poi=1.4761 status=running
+[00:33:11] 
+--- Iteration 2/3 (seed=10042) ---
+[00:33:15]   Total blocks: 20 (gue=10, poisson=10)
+[00:33:26]     processed 5/20 (gue) rows=3000
+[00:33:30]     processed 10/20 (gue) rows=3600
+[00:33:34]     processed 15/20 (poisson) rows=4200
+[00:33:34]     processed 20/20 (poisson) rows=4800
+[00:33:34]   Iteration time: 23.7s | merged: 0.83 MB | total rows: 4800
+[00:33:34]   AUDIT:
+[00:33:34]     gue: n=20 converged=0% stalled=0%
+[00:33:34]     poisson: n=20 converged=0% stalled=0%
+[00:33:34]   TOP OUTLIERS:
+[00:33:34]     gue_11042_0009: score=-1.3535 d_gue=1.3427 d_poi=2.6962 status=running
+[00:33:34]     poisson_2042_0005: score=1.2747 d_gue=2.8785 d_poi=1.6038 status=running
+[00:33:34]     poisson_2042_0004: score=1.2530 d_gue=2.2609 d_poi=1.0079 status=running
+[00:33:34]     gue_1042_0000: score=-1.1835 d_gue=1.0706 d_poi=2.2541 status=running
+[00:33:34]     gue_1042_0005: score=-1.0997 d_gue=1.5953 d_poi=2.6950 status=running
+[00:33:34] 
+--- Iteration 3/3 (seed=20042) ---
+[00:33:39]   Total blocks: 20 (gue=10, poisson=10)
+[00:33:49]     processed 5/20 (gue) rows=5400
+[00:33:55]     processed 10/20 (poisson) rows=6000
+[00:33:59]     processed 15/20 (poisson) rows=6600
+[00:33:59]     processed 20/20 (poisson) rows=7200
+[00:34:00]   Iteration time: 25.1s | merged: 1.25 MB | total rows: 7200
+[00:34:00]   AUDIT:
+[00:34:00]     gue: n=30 converged=0% stalled=0%
+[00:34:00]     poisson: n=30 converged=0% stalled=0%
+[00:34:00]   TOP OUTLIERS:
+[00:34:00]     gue_21042_0008: score=-1.4772 d_gue=0.7657 d_poi=2.2429 status=running
+[00:34:00]     gue_21042_0005: score=-1.4247 d_gue=0.7163 d_poi=2.1411 status=running
+[00:34:00]     poisson_2042_0005: score=1.4023 d_gue=2.9996 d_poi=1.5973 status=running
+[00:34:00]     poisson_22042_0005: score=1.3565 d_gue=2.2277 d_poi=0.8712 status=running
+[00:34:00]     poisson_2042_0004: score=1.3312 d_gue=2.3519 d_poi=1.0207 status=running
+[00:34:00]   STOP: Metrics stagnant for 2 iterations

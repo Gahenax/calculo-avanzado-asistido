@@ -1,0 +1,29 @@
+{
+    "max_iterations": 3,
+    "blocks_per_iter": {
+        "zeta": 0,
+        "gue": 10,
+        "poisson": 10
+    },
+    "block_length_spacings": 4000,
+    "embedding": "gap_ratio_3d",
+    "flow_steps": 120,
+    "flow_points": 1500,
+    "flow_float32": true,
+    "cores": -1,
+    "entropy_reducer": {
+        "enable": true,
+        "median_k": 7,
+        "ema_alpha": 0.06,
+        "winsor_w": 25,
+        "winsor_p_lo": 2.5,
+        "winsor_p_hi": 97.5,
+        "ks_max": 0.15
+    },
+    "audit": {
+        "outlier_topk": 30
+    },
+    "active_farming": {
+        "enable": false
+    }
+}
