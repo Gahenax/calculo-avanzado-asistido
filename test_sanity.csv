@@ -1,0 +1,3 @@
+dimension,seed,algorithm,wall_time,norm_found,gh_target,ratio_gh,delta_0,is_success
+10,1000,LLL,0.0855,1000.0,930.8447,1.074293,0.980592,False
+10,1000,BlackBox,0.8051,1000.0,930.8447,1.074293,0.980592,False
