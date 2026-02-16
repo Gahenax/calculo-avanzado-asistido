@@ -1,0 +1,573 @@
+{
+  "author": "Jos\u00e9 de \u00c1vila",
+  "tool": "Antigravity",
+  "purpose": "Repository provenance and authorship signature",
+  "timestamp_utc": "2026-02-16T08:41:36.568075Z",
+  "hash_algorithm": "SHA-256",
+  "artifacts": [
+    {
+      "path": ".agent\\skills\\riemann-spectral-chaos\\SKILL.md",
+      "sha256": "238e5076dbee22ef2edce593064c57b96be6951650ad646d07a7af721ad07001"
+    },
+    {
+      "path": ".agent\\skills\\riemann-spectral-chaos\\scripts\\core_math.py",
+      "sha256": "5eae84e8e85f89ad47eb6a3d99227bc191366825b86a6d91d3d472a63d702c7d"
+    },
+    {
+      "path": ".agent\\skills\\riemann-spectral-chaos\\scripts\\floquet_engine.py",
+      "sha256": "c835bc15c7a2c3dd8f24cd9eafd3fd09da766f7c4e147888a16ebbbf4047006e"
+    },
+    {
+      "path": ".agent\\skills\\riemann-spectral-chaos\\scripts\\spectral_engine.py",
+      "sha256": "23928521c8a4d7f5bda73de54ef7ec6e0a4770a9b9832f064ddbfe69efcfaa87"
+    },
+    {
+      "path": "ACTIVATE_JULES_RESCUE.md",
+      "sha256": "7644a5d6ad3eb35a590c2cf6f04992334595e127f1d58630b32f8b8389608980"
+    },
+    {
+      "path": "AGENTS.md",
+      "sha256": "1f608a689eed0efd98303750b3accd97e3813d45af464aa17cb7b1cb537f68d3"
+    },
+    {
+      "path": "AG_RIEMANN_RESCUE_LAB.py",
+      "sha256": "117494ca27c15584ac45365710d83f7b2f5e6c1232579136ed9bdb842970383f"
+    },
+    {
+      "path": "ALIGN_SPACING_DISTS.py",
+      "sha256": "f928020ac89578578c8dbc2105e089cc382611921c98c3851db1c5a5242657de"
+    },
+    {
+      "path": "ALL_ZEROS_FINAL.json",
+      "sha256": "899a5a553db4a38935ce0442155b150704cab009e6466c281b7973ed11013822"
+    },
+    {
+      "path": "ALL_ZEROS_FINAL_meta.json",
+      "sha256": "f08267a75a5b76c8f731c1bbddf0a2f98d97aad414c73d860e6c79115f96935d"
+    },
+    {
+      "path": "ANTIGRAVITY_EXPERIMENT_CRONOS_RIEMANN_GUE_V1.py",
+      "sha256": "4c37c1790976255c85397d3e4dbe98159a32b9d317499b44a02857f13e782aa2"
+    },
+    {
+      "path": "ANTIGRAVITY_MASTER_PROMPT_CALCULO3_CRONOS.py",
+      "sha256": "29b8269be06a52b3c8f051fe592e59c2825676cf08d944b7a6fbae8944fe930e"
+    },
+    {
+      "path": "ANTIGRAVITY_SIGN_REPOSITORY.py",
+      "sha256": "b91a24f3cd5d36e25f1a0520adc7fc53ff2ac1836904cf3c3e73e09e804544d5"
+    },
+    {
+      "path": "CRONOS_MASTER_AUDITOR.py",
+      "sha256": "ed3649e0019327c29a5ffb01ff40474490f0ff829da4caa2f904bc7df328f6d7"
+    },
+    {
+      "path": "GAHENAX_LLL_WARFARE_PATCHKIT.py",
+      "sha256": "b4fe5751358482e370c4a397fbb751b093c951de4596bc6f346495443f096509"
+    },
+    {
+      "path": "IMPLEMENTATION_PLAN.md",
+      "sha256": "b85c4bd5e0cf6c1c32fac46025aaccd531784a74cb00a5e2e6112f42f71ba512"
+    },
+    {
+      "path": "MAKE_FINAL_REPORT.py",
+      "sha256": "004156bb62a14fab3366596cfdd0f65c04df494f25b70cfc29631d17c01e91dc"
+    },
+    {
+      "path": "README.md",
+      "sha256": "9ddb14ae6d13299147db94af90a09c064bdb68760c585014b2b374aeed6542af"
+    },
+    {
+      "path": "RIEMANN_DYSON_FORCE_ANALYSIS.py",
+      "sha256": "03818e7e48cde22a13bd42ac1ed9162cf1aeb6279dd2e32e988228680729fb8d"
+    },
+    {
+      "path": "RIEMANN_GUE_STATS.py",
+      "sha256": "97c98e075dfa489ae2dae6e060d23947831495c2849f622354e2469db5aa155e"
+    },
+    {
+      "path": "RIEMANN_TRIPWIRE_DRILL_V3.py",
+      "sha256": "faca145fd34ad566857784b211356d1631eef2bcad1e25ea8a0817ee37ff2449"
+    },
+    {
+      "path": "RIEMANN_TRIPWIRE_MINER_V2.py",
+      "sha256": "3321f09cbb6c481e21f9142c1c955764913ae5a2433cb3f5909004f9f84ac0ea"
+    },
+    {
+      "path": "RIEMANN_ZERO_FILTER_UA_MACRO.py",
+      "sha256": "9676a4cbdf632b953b90edf3be71cad64952e682037e237fc7a9a6eeb6cf6d2c"
+    },
+    {
+      "path": "SIGNATURE.md",
+      "sha256": "f15ed09ae592fa131eca61e6a261f2e25e99e010f772155a8ceed81b7438e0c2"
+    },
+    {
+      "path": "TIME_CRYSTAL_FLOQUET_SPECTRUM.py",
+      "sha256": "262843f9622285a63af54e8aed9fa89946aee6ea4c2d13420e1002e529557cfe"
+    },
+    {
+      "path": "ZETA_ENTROPY_GENERATOR.py",
+      "sha256": "bb341c7d8558b15b36f3ed0b36aa07d76ef6412b9a5ae3bc9937b1000f9f7c14"
+    },
+    {
+      "path": "analyze_tripwire_stats.py",
+      "sha256": "edf9926a7c09d0e47576004ba49793d699f477a6ed28df824967610f1bd26b26"
+    },
+    {
+      "path": "bench_dim8.py",
+      "sha256": "1a040e3e00dc8953b4deaf14e15bf19d3939daa6a91c5a6390f808ed44e3657d"
+    },
+    {
+      "path": "bench_p_over_np.py",
+      "sha256": "f3206d0e9cfd5469eadf443c66992e72f165d74e27fdd6ef946a9fcc1ff6890c"
+    },
+    {
+      "path": "collider_analysis_report.json",
+      "sha256": "c67a79663cbc7275dc8aa537b01489e5e7e8bcf04c798021e9fec419757e4adc"
+    },
+    {
+      "path": "collider_events.json",
+      "sha256": "321a4d71a801e08d6233d65de11025056e85e4d6269b2f5a5d5073b8303f0c41"
+    },
+    {
+      "path": "collider_events_highres.json",
+      "sha256": "5cfa1ce291644b7755029c49a47d2c41b2f883be74db19b99cdaebef95ce8730"
+    },
+    {
+      "path": "collider_resonance_analyzer.py",
+      "sha256": "3529dc66bf915b09303a7f20b2e4bb1ed024ce5a15f7bce6d69d2f3619d72a89"
+    },
+    {
+      "path": "collider_to_spectrum.py",
+      "sha256": "04d9f8ced05d6e927a9ba112448433ae30094f9cea6ab857b55fe6a16c68e004"
+    },
+    {
+      "path": "core\\ANTIGRAVITY_INFO_REPORT_RIEMANN.py",
+      "sha256": "a6beb609509d433b68b42cd76aa213df27720d5ad8dfb6d9d0f4168d7f5dfa23"
+    },
+    {
+      "path": "core\\ANTIGRAVITY_OPTIMIZATION_REPORT_ZETA.py",
+      "sha256": "05c8de132ad240672254584013f5bdff2a028aec0254f1767997941f99d574ac"
+    },
+    {
+      "path": "core\\ANTIGRAVITY_PROMPT_ENTROPY_REDUCER_V1.py",
+      "sha256": "419eb27c26293a1d2c6479353570c97cb9991fbef622bf6cd9b45777e622b1c1"
+    },
+    {
+      "path": "core\\ANTIGRAVITY_PROMPT_GAMMA_GCF_B2_CORRECTIONS.py",
+      "sha256": "f4df7e3913d3304fb74d8ace0bf726abbe2e2add6483a0e3709d3ece4e167fab"
+    },
+    {
+      "path": "core\\ANTIGRAVITY_PROMPT_GAMMA_GCF_EXPAND.py",
+      "sha256": "cb4e0d546a0d1de148ab92052398dab7175637b186fe53f4fe9d4672328ef7e9"
+    },
+    {
+      "path": "core\\ANTIGRAVITY_PROMPT_LOGIC_HARNESS_V1.py",
+      "sha256": "359cb9dc7cd43e1a4d9351e47e7b284956533362669a0bd178a18cfb4914af17"
+    },
+    {
+      "path": "core\\ANTIGRAVITY_PROMPT_ODLYZKO_HIGH_ZEROS.py",
+      "sha256": "8ab1b9647fe04d73aafa39a862cb50feb7eab201bb070bd7a800cdb5dada75ba"
+    },
+    {
+      "path": "core\\ANTIGRAVITY_PROMPT_RIEMANN_FARMING.py",
+      "sha256": "53d7ada8d9581444dd7ae2ddba66893ca3ce8bd60434c19b8251b0b2aa0f221d"
+    },
+    {
+      "path": "core\\ANTIGRAVITY_PROMPT_STRUCTURAL_NUMERIC_SEARCH.py",
+      "sha256": "cb67739c462dddb1f7ace644b4ed32228f83fb9da826d73f2a371490a3af6084"
+    },
+    {
+      "path": "core\\GAHENAX_UA_ENGINE.py",
+      "sha256": "adfd7ab00a8b0eda8acc6b2fbc724d4932452c050cca0cc6ac2601e19b63612c"
+    },
+    {
+      "path": "core\\GAHENAX_UA_ENGINE_V2.py",
+      "sha256": "3f2060ec128f3957b8c6a840a862642351406d2df32545f212bd2d13d93c6493"
+    },
+    {
+      "path": "core\\GAHENAX_UA_ENGINE_V2_HARDENED.py",
+      "sha256": "fadf754e38da47bc28fb9d813a22e52fe8a7f651e9025a321ab8e2ca8be19b2e"
+    },
+    {
+      "path": "core\\GAHENAX_UPGRADES.py",
+      "sha256": "c829f0f5ebe57ce74cb9a45cd086deb437203777ad884450dde35217b2c454ef"
+    },
+    {
+      "path": "core\\GAMMA_GCF_B2_RUNNER.py",
+      "sha256": "81740f34bbba5e573d97ca4527785e50aaba7d727a5cec7becc00ad00a4055d6"
+    },
+    {
+      "path": "core\\GAMMA_GCF_EXPAND_RUNNER.py",
+      "sha256": "697670c116810bc02a62c221c65fc68f98377f88169a58af14920a60c8f75c27"
+    },
+    {
+      "path": "core\\GAMMA_PRIME_GENESIS_HARDENED.py",
+      "sha256": "bf48a9d693caa62072fbc1d0e1551acee4de091d26b67a3434d1f1ebd08d36aa"
+    },
+    {
+      "path": "core\\LATTICE_SVP_OUROBOROS_WARFARE_ALLINONE.py",
+      "sha256": "024a76e9d628adcd4e5fc8784d8c95ba7d229b07383ae204731e6d9bd69db3dd"
+    },
+    {
+      "path": "core\\OPTIMA_CORE_SINGLEFILE.py",
+      "sha256": "a0ba72aa0534fe094e92fb94e0ab478d81e2d7ec65045bbbbe2be8a15a0a0150"
+    },
+    {
+      "path": "core\\OUROBOROS_PROMPT_LATTICE_SVP_WARFARE.py",
+      "sha256": "96ef8fa7a0fa37c0060809aa2c9ed50643ca79f8a6efe867056a4d31bd80e291"
+    },
+    {
+      "path": "core\\RIEMANN_FINAL_VERDICT_ONEPROMPT.py",
+      "sha256": "07a371095cfd422bde886f44395ed51d362cdfda96e9da240b8475554872d870"
+    },
+    {
+      "path": "core\\RIEMANN_GUE_CONSTRICTOR_HARDENED_C7.py",
+      "sha256": "c46ca1be274917870936fda110b18a2f0057e33b396cbb21f9720de5d7e0c768"
+    },
+    {
+      "path": "core\\STRUCTURAL_NUMERIC_SEARCH_RUNNER.py",
+      "sha256": "569aec98878b6b974686a7f5d70b890107a89c8cb9fbf96dff6a03dcd50cdea5"
+    },
+    {
+      "path": "core\\bench_dim8_warfare.py",
+      "sha256": "0ef612f913b0cfcfdfefd32657b97e4c073d281b4cd870f75fa2528e61481f5b"
+    },
+    {
+      "path": "core\\context_anchor.py",
+      "sha256": "192e82301379a76ca5351584c9baa733d84cfb4e7f39338512a4028eda29a3c1"
+    },
+    {
+      "path": "core\\gahenax_utils.py",
+      "sha256": "876dee3fe16d8697b0beeac84f3511b8b367988cfafa888f0bcdb6578723059d"
+    },
+    {
+      "path": "core\\gamma_b2_results.json",
+      "sha256": "8c705a4a31d2abb73bae88965f6e29364a51fab9bf427f8a95e7d567a122e033"
+    },
+    {
+      "path": "core\\gamma_expand_results_v4.json",
+      "sha256": "c14885666052084ffa13bca1880497a774201ca5a8bad021ced7c934c4aa39aa"
+    },
+    {
+      "path": "core\\governance_runtime.py",
+      "sha256": "36290ca6f72c5c0592e89fd6744fd620f79bd1d31bc7ab9ba87bfbd713990a03"
+    },
+    {
+      "path": "core\\hardened_runner.py",
+      "sha256": "21c993671aeeea9a7266277ca24015e6498251feedeca856ac2ac692872f8517"
+    },
+    {
+      "path": "core\\hardening.py",
+      "sha256": "2e7aeeb20c9891a0c0da305baeba2f0942c9a07cdadd64e3aa56fa7d29315983"
+    },
+    {
+      "path": "core\\riemann_constrictor_c7.json",
+      "sha256": "6d365aa4b64ba5c1afb61e234d88e69ee3ea13c25d42fe8992a6e3061e366e53"
+    },
+    {
+      "path": "core\\riemann_constrictor_c7_manifest.json",
+      "sha256": "344cea1b876e3f84002aea5baddb812ee79b06aefef5e6c4a715aff970b26d6e"
+    },
+    {
+      "path": "core\\riemann_final_verdict.json",
+      "sha256": "7ce8f4dc7c74d657a89705d330b11df4230379c0211b7ee6138eb293baaef323"
+    },
+    {
+      "path": "core\\riemann_pipeline_utils.py",
+      "sha256": "bc2ad52274bbe684fc73a974431885f054a9fcdfc9c6a5eae9b2404508c9b970"
+    },
+    {
+      "path": "core\\safe_math.py",
+      "sha256": "a4f8dfba09e3ec0e5399ef9609b4de0de2dffc8961e6c627163faf5142ea779f"
+    },
+    {
+      "path": "core\\structural_search_results.json",
+      "sha256": "dc6bfa000bf478628d1aa9ac839ce4606c93f843f45b993d6da00197c05200f6"
+    },
+    {
+      "path": "core\\structural_search_results_v3.json",
+      "sha256": "11df287d669b6483c0ea004a2b2d0f25bcbc56591f47faf2015c32c6425599f8"
+    },
+    {
+      "path": "core\\tests_hardening_minimal.py",
+      "sha256": "db4a1129e3aa92979864115519dc4cf0dd7fe96c19f2dda5a735fabf60f6d099"
+    },
+    {
+      "path": "cronos_report.json",
+      "sha256": "1c59ca6898e5f4cecb7aa9ddacd6cac3ca8e1af5f63d310e3b0bbeb5c3832464"
+    },
+    {
+      "path": "energy_recovery_test.py",
+      "sha256": "02e43d53ebc955d144f7765ae666a3d696dbb6bfb63cab18b603432b47bb943b"
+    },
+    {
+      "path": "final_verdict.md",
+      "sha256": "822444cbe8433e9da0ff6b85d6b58f3632fc6a196fa8988d14233d1648bd9d87"
+    },
+    {
+      "path": "mine_riemann_zeros.py",
+      "sha256": "2946fbe4de4b85a0d47d7e88111778eb18fc955234af4e874a2b607e9d0998e4"
+    },
+    {
+      "path": "package-lock.json",
+      "sha256": "afefd5f3a01a731e8dbde056c271dc79125d0ff204e8dcd88457be772ca5544c"
+    },
+    {
+      "path": "package.json",
+      "sha256": "db267671458aef58f3661fbae57d53c2324f6ba56855901870e880b42b809053"
+    },
+    {
+      "path": "plan.json",
+      "sha256": "956d53b77f2f326f8d1363ade7beafccd4fcb66f116e6a899469c86b3be3c3fe"
+    },
+    {
+      "path": "quick_test_v2.py",
+      "sha256": "35045aaa35c0794ede0ada96f4bdd56f1093445db4f35251f29d0e478dc29583"
+    },
+    {
+      "path": "rescue_1314.json",
+      "sha256": "9d14c52981612418394f94b6fdefd532b62cdb9ffef92e8080bf26d53621b90d"
+    },
+    {
+      "path": "results\\alignment_report.json",
+      "sha256": "6a4f436e02e130fd97b2bd4e7787a06149af8e45413df81215c7c2c0b8c78be1"
+    },
+    {
+      "path": "results\\collider_resonance\\5b71eb7f_poisson_N559_X150\\result.json",
+      "sha256": "f8dde2698fad90782c163299ac1c9f4216fbc5fcb06a2a3580bc6cbd92459e77"
+    },
+    {
+      "path": "results\\collider_resonance\\ba224bfb_real_N559_X150\\result.json",
+      "sha256": "d3fc57e89ab15ec7ac4bd882e105f26679c536ed0952d744634212c3beed1f02"
+    },
+    {
+      "path": "results\\collider_resonance\\summary.json",
+      "sha256": "3bbce6515e85685d2f8066bf328f21a88dda525eaba4289761addf995dccce9c"
+    },
+    {
+      "path": "results\\energy_recovery\\summary_energy_recovery.json",
+      "sha256": "bdfa69eb5207f49241805f6d5f61dba89309428d3b1a08bd827a5f66e7c892ec"
+    },
+    {
+      "path": "results\\final_report.json",
+      "sha256": "2ce8e36f8b6517f833479593d0f24243988afcde42d5a674d70e776e1b4c404c"
+    },
+    {
+      "path": "results\\riemann_stats.json",
+      "sha256": "abaca4ad1d76588b524af24fff37b777df97bf6c1f818dcdbbf6917d896d7051"
+    },
+    {
+      "path": "results_dyson_force.json",
+      "sha256": "1df26367e0ed74224725ee9fd0a61cd5f74c1aea9b22ac49518e002efd11a9da"
+    },
+    {
+      "path": "riemann_collider.py",
+      "sha256": "f9fb458487cc89d4262fe86de322977811df4a4a7f21e6c4296e243a5eaca239"
+    },
+    {
+      "path": "riemann_ouroboros\\GAP_RATIO_KS_DISCRIMINATOR.py",
+      "sha256": "d7c18a20801341946f6acb4a088a164a6e570f5bfb69b1703ad1cba6a12aad99"
+    },
+    {
+      "path": "riemann_ouroboros\\POINT_CLOUD_LAPLACIAN_FLOW_HARDENED_V2_1.py",
+      "sha256": "37c5538593e0020473f95aaf9947f116509bfe2f3e30ad0fd998fa2ce5d4d086"
+    },
+    {
+      "path": "riemann_ouroboros\\audit.py",
+      "sha256": "371d3c8012aa9dca8979bd7aee4838457691eee1bb8af70da6d4cfd2d3ddae5c"
+    },
+    {
+      "path": "riemann_ouroboros\\config.json",
+      "sha256": "32c961749d028df1c9aa9d3c59ed6a8380c1e2c9989b5d2afeee2abe25276016"
+    },
+    {
+      "path": "riemann_ouroboros\\controls.py",
+      "sha256": "0a8bb8e3fb6ce8794054201c236554bac4e220f953c0eff04ead59b5e7e0f6d9"
+    },
+    {
+      "path": "riemann_ouroboros\\data\\outputs\\audit_report.json",
+      "sha256": "169b1a858ad4d6e8c66b62c4e336e33f933fe08241cee62d17735753f4697cfd"
+    },
+    {
+      "path": "riemann_ouroboros\\data\\outputs\\cycle_state.json",
+      "sha256": "5202ec119dbee2cabb8ee68c3c1aa5807d6374c6a9341b53232183e0e9813248"
+    },
+    {
+      "path": "riemann_ouroboros\\data\\outputs\\gap_ratio_ks_report.json",
+      "sha256": "d2f355e87c8ed411bb64df185f7d517befc9c114589e8bf202b54d537518599a"
+    },
+    {
+      "path": "riemann_ouroboros\\data\\outputs\\logs_cycle.txt",
+      "sha256": "54675b7122f95d8a0902eb94179dbedbb9dcda5f96c3471a20362c2c5c4d1078"
+    },
+    {
+      "path": "riemann_ouroboros\\embeddings.py",
+      "sha256": "49a8e0b2b6c1b005ab0d5401042878fdd06604074ae7257f82eea38d5b4a55be"
+    },
+    {
+      "path": "riemann_ouroboros\\entropy_reducer.py",
+      "sha256": "bda9a3dcc705c9d89a672f9312159ddfc5e597457aa506f581fa9c474a178981"
+    },
+    {
+      "path": "riemann_ouroboros\\farmer_adapter.py",
+      "sha256": "a016842bcaa50edfd79d19042b5e18209658f6175381c2b5b11707e84ac81f8c"
+    },
+    {
+      "path": "riemann_ouroboros\\flow_on_cloud.py",
+      "sha256": "6588ffaae24a4230aa54b381e0bc2d11a6cec2bc06242bcb7745c2594534caaf"
+    },
+    {
+      "path": "riemann_ouroboros\\io_utils.py",
+      "sha256": "e34c66003942b3d96ab7084cfdfe5831bbd27e37c648f6f6e669149fed0235e1"
+    },
+    {
+      "path": "riemann_ouroboros\\run_cycle.py",
+      "sha256": "805b03eb7c3b3d6eeb7c3d32620a2a61b226827f866fee938dd268d1290c1ab0"
+    },
+    {
+      "path": "riemann_ouroboros_heavy\\JULES_WORK_ORDERS.md",
+      "sha256": "91e4318b25c1e8536a8b0212cbf2b58129ce57a836da436b5a2cfba5bd29a7d0"
+    },
+    {
+      "path": "riemann_ouroboros_heavy\\config.json",
+      "sha256": "e4a1d86babfa892140e73fe4363e32997dc0a2ba35e7f821b11a66a9b07f79d0"
+    },
+    {
+      "path": "riemann_ouroboros_heavy\\data\\audit_100k\\audit_report_100k.json",
+      "sha256": "1eee05b7e6663bd415aa956b903737bdc6bfea64fdacc66319de1d4e82ece421"
+    },
+    {
+      "path": "riemann_ouroboros_heavy\\data\\audit_zeros3_10e12\\audit_report_zeros3_10e12.json",
+      "sha256": "ab717b7b010457a910b206190efde5803ffdd17cc1afcd90aa39781c5f57b205"
+    },
+    {
+      "path": "riemann_ouroboros_heavy\\data\\audit_zeros4_10e21\\audit_report_zeros4_10e21.json",
+      "sha256": "cdc8426e0b38b097eeb0c543e8d298c02d1aebf4fe37ad0a6cbf7a47158d9b05"
+    },
+    {
+      "path": "riemann_ouroboros_heavy\\data\\audit_zeros5_10e22\\audit_report_zeros5_10e22.json",
+      "sha256": "3865df8b18511fb571e5927cc7bc7aca4bbe35708b3aa36ca41b850bf61dbd30"
+    },
+    {
+      "path": "riemann_ouroboros_heavy\\data\\meta_odlyzko_zeros1.json",
+      "sha256": "725c4c9d98712758082de79e5012f084610371f3a9341dfc88637a3e20331a62"
+    },
+    {
+      "path": "riemann_ouroboros_heavy\\data\\meta_odlyzko_zeros3.json",
+      "sha256": "344a73595634e497907b52863ab97cdcef7dddfe13c881e3984af53b53596728"
+    },
+    {
+      "path": "riemann_ouroboros_heavy\\data\\meta_odlyzko_zeros4.json",
+      "sha256": "d6b2d382bcbb8bbdbe24e556f07134e9b4b7e681d8d1f5daa8d1a15d6c1824f7"
+    },
+    {
+      "path": "riemann_ouroboros_heavy\\data\\meta_odlyzko_zeros5.json",
+      "sha256": "b3251e6f3a90902c57efcd0aba04e13166aa7fdb045d55af2ad8f198963a60e6"
+    },
+    {
+      "path": "riemann_ouroboros_heavy\\data\\zeros1_raw.txt",
+      "sha256": "a96ae311cc0f131543f071e1d3ceb55e070e06e2b38faf1cbc4409171f5f3839"
+    },
+    {
+      "path": "riemann_ouroboros_heavy\\data\\zeros3_raw.txt",
+      "sha256": "3fb8438c4ef3ed1fd86a53bed398a145193b23b0f6604c49ec149c5d5ee41543"
+    },
+    {
+      "path": "riemann_ouroboros_heavy\\data\\zeros4_raw.txt",
+      "sha256": "cb958ad08065a6d9d1c9205cf3eef4bcd4c2f9fa01ca211928d1422d07739011"
+    },
+    {
+      "path": "riemann_ouroboros_heavy\\data\\zeros5_raw.txt",
+      "sha256": "66e1fe28f0b5f1fd8a94277fdc91e68ff31f31340b13851f47220b7bffd5de99"
+    },
+    {
+      "path": "riemann_ouroboros_heavy\\outputs\\logs_cycle.txt",
+      "sha256": "b4cede699e99f77843af1815b14941c0388a91970e09b78712161700df2a3452"
+    },
+    {
+      "path": "riemann_ouroboros_heavy\\src\\ODLYZKO_FULL_AUDIT.py",
+      "sha256": "656faaad3e682c6d7197163ceb55adddc0f6afebc981f7c378efcd512afb9929"
+    },
+    {
+      "path": "riemann_ouroboros_heavy\\src\\ODLYZKO_MULTI_AUDIT.py",
+      "sha256": "ae0caf68862fd80049016efaf83a32d6a8425cce709c009b51231186188d0e43"
+    },
+    {
+      "path": "riemann_ouroboros_heavy\\src\\ODLYZKO_RIEMANN_PIPELINE.py",
+      "sha256": "1b3066ddf90d6fe9c00bc823e6efe07aa83f0957f47390dabfe585f9b28d5e27"
+    },
+    {
+      "path": "riemann_ouroboros_heavy\\src\\PROMPT_UNICO_LMFDB_RIEMANN_PIPELINE.py",
+      "sha256": "0afce3431cd2fc9a7702d81c4aed21f2a539beb4131f880d9a4f971506844899"
+    },
+    {
+      "path": "riemann_ouroboros_heavy\\src\\assemble_and_audit.py",
+      "sha256": "606ea72e5ccbb3beae82aac1ce83d665f6d7f721b977985869721353754a2aaf"
+    },
+    {
+      "path": "riemann_ouroboros_heavy\\src\\audit.py",
+      "sha256": "bb9e9b851fd408d9bf3e24e9b903515eccfb90d9a4f7cfd32ed426262005e9d9"
+    },
+    {
+      "path": "riemann_ouroboros_heavy\\src\\controls.py",
+      "sha256": "297a16fe2ee7bc75a005711bc8182e6568455fb3941d930debceda055dd9483c"
+    },
+    {
+      "path": "riemann_ouroboros_heavy\\src\\entropy_reducer.py",
+      "sha256": "f55006d2f5a55883fda4fcba251dd594b8c2c8805dbfcf297efbcc38db0a3e6e"
+    },
+    {
+      "path": "riemann_ouroboros_heavy\\src\\farm_window.py",
+      "sha256": "b6b3c84d68fa52d351c437847bc983db8bbd766f3c381dd6aae3d5636344e54d"
+    },
+    {
+      "path": "riemann_ouroboros_heavy\\src\\io_utils.py",
+      "sha256": "d02d0a3a5e9e9ad6bac485b683ef69ea6c40e49e7ba1dcddefe5f464fa618ca3"
+    },
+    {
+      "path": "riemann_ouroboros_heavy\\src\\metrics.py",
+      "sha256": "9f7dc7a1b92794ff96abe943768db5f1d0c9861276b8ba9cabfe46b76d450009"
+    },
+    {
+      "path": "riemann_ouroboros_heavy\\src\\pipeline.py",
+      "sha256": "46535c701591d69d224ee5ffe40fd8f2384557d4891826cca31282d6537fc440"
+    },
+    {
+      "path": "riemann_ouroboros_heavy\\src\\run_cycle.py",
+      "sha256": "c1ba5c62ed907d0b698ee1eb78e467dc8892b1787eda7aded59e2367dad7f739"
+    },
+    {
+      "path": "riemann_ouroboros_heavy\\src\\zeta_farmer.py",
+      "sha256": "84a4fd31b6e13749347f527869d7523d7b4e290fd0e15a667d145aa5f11a0af7"
+    },
+    {
+      "path": "spectrum_hat.json",
+      "sha256": "e041e88293e75b91aabae992a386d41206237b172591d744c058b8f7f36517b4"
+    },
+    {
+      "path": "tsconfig.app.json",
+      "sha256": "922bc5bfb41bdc0768023b2487d54b3ae23c587d999024d4f32cde879ae6f4d8"
+    },
+    {
+      "path": "tsconfig.json",
+      "sha256": "770b4140bbb581e2dfd9ea9946ffc9c75a1d86ba7d2db5f77c83e37cbdf9d808"
+    },
+    {
+      "path": "tsconfig.node.json",
+      "sha256": "c3dd0fb522feba3596713f51b95bd53d781d845d24aedbfa2ac093d8b39c5120"
+    },
+    {
+      "path": "turbo_run_2014.json",
+      "sha256": "9aaa7e73daf04593aceed28c1938cd3acae6383db13285c313d4f88045509069"
+    },
+    {
+      "path": "warfare_debug.py",
+      "sha256": "fc457210968842c1cf933bf2ebf997ba2764fe3cba8abe16b5d5e61efcc3d30c"
+    },
+    {
+      "path": "warfare_quick.py",
+      "sha256": "59b39ee9b76f3e9390bf5b29b190ea1e2292e016121cb0a11bc2088d664ce702"
+    }
+  ]
+}
