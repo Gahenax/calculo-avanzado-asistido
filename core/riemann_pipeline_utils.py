@@ -279,5 +279,16 @@ def _pack_confirm(br: Tuple[float, float], res: BrentResult) -> Dict[str, Any]:
 # E) Repetibilidad barata
 # ---------------------------
 
-def grid_offsets(step: float) -> Tuple[float, float]:
-    return (0.0, 0.5 * step)
+# ---------------------------
+# F) Riemann-von Mangoldt & Density
+# ---------------------------
+
+def n_riemann_von_mangoldt(t: float) -> float:
+    """Theoretical cumulative number of zeros up to t."""
+    if t < 10: return 0
+    return (t / (2 * math.pi)) * (math.log(t / (2 * math.pi)) - 1) + 7/8
+
+def get_mean_spacing(t: float) -> float:
+    """Theoretical mean spacing Delta(T) at height T."""
+    if t < 2*math.pi: return 1.0
+    return (2 * math.pi) / math.log(t / (2 * math.pi))

@@ -1,0 +1,22 @@
+{
+  "experiment_name": "CRONOS_RIEMANN_GUE_VALIDATION_V1",
+  "summary": "Comparing Floquet (Cronos) level statistics with Riemann Zeta zeros.",
+  "results": {
+    "riemann": {
+      "r_mean": 0.45497689058088986,
+      "ks_gue": 0.27737419083012455,
+      "n_zeros": 370
+    },
+    "cronos": {
+      "best_matching_W": 2.0,
+      "best_matching_r": 0.4643936604985955,
+      "alignment_dist": 0.2028363751039033
+    }
+  },
+  "verification": {
+    "A1_crossover_detected": false,
+    "A2_riemann_gue_like": true,
+    "A3_chaos_alignment": true
+  },
+  "conclusion": "The chaotic regime of Cronos (W=2.0) shows better alignment with Riemann zero statistics than the localized regime (W=10.0), supporting the Floquet-Riemann connection thesis."
+}

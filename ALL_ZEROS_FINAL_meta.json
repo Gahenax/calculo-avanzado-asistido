@@ -1,0 +1,24 @@
+{
+  "n_zeros": 1124,
+  "t_min": 14.134725141734695,
+  "t_max": 1896.5854943471688,
+  "sources": [
+    {
+      "file": "zeros_final_mining.jsonl",
+      "count": 1023
+    },
+    {
+      "file": "drill_final_coverage.jsonl",
+      "count": 69
+    },
+    {
+      "file": "zeros_tripwire.jsonl",
+      "count": 241
+    },
+    {
+      "file": "rescue_1314.json",
+      "count": 86
+    }
+  ],
+  "dedupe_tol": 1e-10
+}

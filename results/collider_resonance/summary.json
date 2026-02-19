@@ -1,0 +1,47 @@
+{
+  "curves": [
+    {
+      "key": {
+        "band": 0.2,
+        "num_points": 20000,
+        "smooth_k": 5,
+        "source": "real",
+        "topK": 200,
+        "window_alpha": 0.005,
+        "xmax": 150.0
+      },
+      "points": [
+        {
+          "Ngamma": 559,
+          "hit_rate_topK": 0.99,
+          "ratio_near_far": 0.0071342619362622
+        }
+      ]
+    },
+    {
+      "key": {
+        "band": 0.2,
+        "num_points": 20000,
+        "smooth_k": 5,
+        "source": "poisson",
+        "topK": 200,
+        "window_alpha": 0.005,
+        "xmax": 150.0
+      },
+      "points": [
+        {
+          "Ngamma": 559,
+          "hit_rate_topK": 0.395,
+          "ratio_near_far": 0.0038165529260498834
+        }
+      ]
+    }
+  ],
+  "experiment": "prime_resonance_psi",
+  "notes": {
+    "expected_pattern_controls": "poisson/scramble should stay low and not improve",
+    "expected_pattern_real": "ratio and hit_rate should improve with Ngamma"
+  },
+  "num_runs": 2,
+  "timestamp_utc": "2026-02-16T05:23:01Z"
+}

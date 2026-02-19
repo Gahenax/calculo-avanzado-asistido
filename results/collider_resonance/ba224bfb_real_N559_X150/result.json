@@ -1,0 +1,27 @@
+{
+  "Ngamma": 559,
+  "artifacts": {
+    "jumps_png": null,
+    "psi_png": null
+  },
+  "config": {
+    "band": 0.2,
+    "num_points": 20000,
+    "seed": 42,
+    "smooth_k": 5,
+    "topK": 200,
+    "window_alpha": 0.005,
+    "xmax": 150.0
+  },
+  "experiment": "prime_resonance_psi",
+  "gamma_max_used": 1882.35459653836,
+  "metrics": {
+    "energy_far": 0.09847022027311615,
+    "energy_near": 0.000702512344349847,
+    "hit_rate_topK": 0.99,
+    "ratio_near_far": 0.0071342619362622
+  },
+  "run_id": "ba224bfb_real_N559_X150",
+  "source": "real",
+  "timestamp_utc": "2026-02-16T05:23:00Z"
+}

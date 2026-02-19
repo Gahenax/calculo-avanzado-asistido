@@ -1,0 +1,47 @@
+{
+  "Ngamma": 559,
+  "experiment": "energy_recovery_test",
+  "results": [
+    {
+      "Ngamma": 559,
+      "metrics": {
+        "energy_far": 0.1785739478143316,
+        "energy_near": 0.00010129869635584173,
+        "hit_rate_topK": 0.99,
+        "ratio_near_far": 0.0005672646967583696
+      },
+      "mode": "flat"
+    },
+    {
+      "Ngamma": 559,
+      "metrics": {
+        "energy_far": 0.17874563470553473,
+        "energy_near": 0.00010357536375449777,
+        "hit_rate_topK": 0.99,
+        "ratio_near_far": 0.0005794567454759254
+      },
+      "mode": "kde"
+    },
+    {
+      "Ngamma": 559,
+      "metrics": {
+        "energy_far": 0.17878052294659363,
+        "energy_near": 0.0001040697592488227,
+        "hit_rate_topK": 0.99,
+        "ratio_near_far": 0.0005821090437234655
+      },
+      "mode": "inv"
+    },
+    {
+      "Ngamma": 559,
+      "metrics": {
+        "energy_far": 0.17935219208716696,
+        "energy_near": 0.00010884375060182218,
+        "hit_rate_topK": 0.88,
+        "ratio_near_far": 0.0006068715934563154
+      },
+      "mode": "kde_inv"
+    }
+  ],
+  "timestamp_utc": "2026-02-16T05:31:48Z"
+}
