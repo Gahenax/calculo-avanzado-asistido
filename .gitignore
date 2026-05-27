@@ -22,3 +22,9 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# OEDA Consolidado - Mersenne heavy assets
+data/mersenne/*.xlsx
+data/mersenne/*.parquet
+ledgers/ledger_domino_mersenne_*/*.jsonl
+tools/mersenne-worker-rs/target/

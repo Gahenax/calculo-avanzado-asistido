@@ -1,0 +1,1 @@
+C:\Users\jotam\OneDrive\Desktop\GahenaxAI\OEDA_HodgeRigidity\tools\mersenne-worker-rs\target_force\release\mersenne-worker-rs.exe: C:\Users\jotam\OneDrive\Desktop\GahenaxAI\OEDA_HodgeRigidity\tools\mersenne-worker-rs\src\main.rs C:\Users\jotam\OneDrive\Desktop\GahenaxAI\OEDA_HodgeRigidity\tools\mersenne-worker-rs\src\quantum_resonance_kernel.rs

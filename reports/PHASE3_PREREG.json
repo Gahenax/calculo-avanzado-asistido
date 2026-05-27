@@ -1,0 +1,113 @@
+{
+  "T_global": {
+    "T0": 7000.0,
+    "T1": 15000.0,
+    "name": "W0_GLOBAL"
+  },
+  "T_windows": [
+    {
+      "T0": 7000.0,
+      "T1": 15000.0,
+      "name": "W1"
+    },
+    {
+      "T0": 8000.0,
+      "T1": 14000.0,
+      "name": "W2"
+    },
+    {
+      "T0": 9000.0,
+      "T1": 13000.0,
+      "name": "W3"
+    }
+  ],
+  "allowed_interpretation_fail": "The Phase-POC elevation was compatible with fluctuation; there is no robust evidence for discrimination under Phase-3 conditions.",
+  "allowed_interpretation_pass": "Evidence supports a weak but real spectral footprint for small Mersenne primes (k<=127) under this estimator, in the fixed T-window regime. This is not a primality certificate.",
+  "checksum": "559984d9e4fae96b284b04348ef695fa2f690df9d0c0f61f89f80e71319a61f3",
+  "created_utc": "2026-02-23T00:00:00Z",
+  "decision_metric": "AUC (ROC) on X(u0)=|S_norm(u0)|",
+  "eval_sets": {
+    "control_k_le_127": [
+      11,
+      23,
+      29,
+      37,
+      41,
+      43,
+      47,
+      53,
+      59,
+      67,
+      71,
+      73
+    ],
+    "mersenne_prime_k_le_127": [
+      2,
+      3,
+      5,
+      7,
+      13,
+      17,
+      19,
+      31,
+      61,
+      89,
+      107,
+      127
+    ],
+    "notes": "Controls must remain frozen. If the repository already defines a canonical control set for k<=127, replace this list once and never change again."
+  },
+  "forbidden_claims": [
+    "This method certifies primality of 2^k - 1.",
+    "This replaces Lucas-Lehmer or GIMPS.",
+    "This proves the Riemann Hypothesis.",
+    "High-u z-peaks imply Mersenne structure without robustness under nulls and windows."
+  ],
+  "gates": [
+    {
+      "description": "Dataset integrity and shard consistency checks",
+      "fail_condition": "Any integrity failure aborts analysis; no interpretation allowed.",
+      "gate_id": "Gate 0: Integrity",
+      "pass_condition": "All blocks pass: ordered gammas, no NaNs, no duplicates, declared ranges consistent, hashes match manifests, and global concatenation is strictly increasing."
+    },
+    {
+      "description": "Instrument must detect small-prime structure stably",
+      "fail_condition": "If sanity fails, Gate 2 and Gate 3 are not interpreted; pipeline is considered uncalibrated.",
+      "gate_id": "Gate 1: Sanity (positive controls)",
+      "pass_condition": "Detect u=log(5) and u=log(7) with z > 1.5 in at least 2 of 3 windows (W1-W3), for both kernels (hann and tukey)."
+    },
+    {
+      "description": "AUC separation for Mersenne primes with k <= 127 vs controls",
+      "fail_condition": "AUC stays near 0.50-0.55 with no consistent elevation across windows, or high AUC in W1 collapses in W2 and W3 (instability).",
+      "gate_id": "Gate 2: Primary result (Layer B)",
+      "pass_condition": "AUC >= 0.65 in W1 and AUC >= 0.62 in at least one of {W2, W3}, and the 95% bootstrap CI lower bound for AUC in W1 is > 0.55."
+    },
+    {
+      "description": "Adversarial robustness check for k=10,11,29 at u = k*log(2)",
+      "fail_condition": "Non-robust behavior is reported as artifact/noise; not a discovery claim.",
+      "gate_id": "Gate 3: Layer C (2-structure audit)",
+      "pass_condition": "For each k in {10,11,29}, z > 2.0 appears in at least 2 of 3 windows and persists under both null models. Otherwise reported as non-robust."
+    }
+  ],
+  "kernels": [
+    "hann",
+    "tukey"
+  ],
+  "null_primary": {
+    "B": 400,
+    "description": "Replace exp(i*gamma*u) with exp(i*gamma*u + i*theta_gamma), theta_gamma ~ Uniform(0, 2pi), independently per gamma. Preserves gamma distribution and window weights; destroys coherent structure.",
+    "name": "phase_randomization"
+  },
+  "null_secondary": {
+    "B": 400,
+    "description": "Permute contiguous blocks of gammas within coarse T-bins to preserve local density while breaking long-range alignment. Sensitivity check for window/leakage artifacts.",
+    "name": "block_permutation"
+  },
+  "prereg_id": "RZ_MERSENNE_SPECTRAL_PHASE3_PREREG_0001",
+  "score_definition": "Given target u0, score X(u0) = |S_norm(u0)|.\nClassification uses X(u0) for positives vs controls at their respective u0 values.",
+  "statistic_definition": "S(u) = sum_{gamma in window} w(gamma) * exp(i * gamma * u)\nS_norm(u) = S(u) / sqrt(sum_{gamma} w(gamma)^2)\n\nw(gamma) is a deterministic taper (kernel), evaluated over the chosen T-window.",
+  "statistic_name": "S(u) exponential sum over zeros (normalized)",
+  "target_n_zeros_ideal": 12000,
+  "target_n_zeros_min": 10000,
+  "version": "1.0.0"
+}

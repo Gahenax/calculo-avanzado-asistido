@@ -1,0 +1,17 @@
+   Compiling ahash v0.8.12
+   Compiling crossbeam-epoch v0.9.18
+   Compiling is_terminal_polyfill v1.70.2
+   Compiling colorchoice v1.0.5
+   Compiling zmij v1.0.21
+   Compiling portable-atomic v1.13.1
+   Compiling rayon-core v1.13.0
+   Compiling regex-automata v0.4.14
+   Compiling hashbrown v0.14.5
+error: failed to write C:\Users\jotam\OneDrive\Desktop\GahenaxAI\OEDA_HodgeRigidity\tools\mersenne-worker-rs\target\release\deps\libcrossbeam_epoch-cee25310b4801cf2.rmeta: El proceso no tiene acceso al archivo porque está siendo utilizado por otro proceso. (os error 32)
+
+   Compiling serde v1.0.228
+error: could not compile `crossbeam-epoch` (lib) due to 1 previous error
+warning: build failed, waiting for other jobs to finish...
+error: failed to write C:\Users\jotam\OneDrive\Desktop\GahenaxAI\OEDA_HodgeRigidity\tools\mersenne-worker-rs\target\release\deps\libserde-9f71dff716a83330.rmeta: El proceso no tiene acceso al archivo porque está siendo utilizado por otro proceso. (os error 32)
+
+error: could not compile `serde` (lib) due to 1 previous error
